@@ -12,11 +12,10 @@ $(document).ready(function () {
 
 	function addFile(file) {
 		var filetype = getType(),
-			$file = $('<div class="grid__item '+filetype+'"></div>'),
-			$icon = $('<i class="fa fa-fw fa-file-'+getIcon(filetype)+'"></i>');
-
-		$file.append($icon);
-		$('#grid').append($file);
+		$icon = '<i class="fa fa-fw fa-file-' + getIcon(filetype) + '"></i>';
+		$card = $('<div g="column"><div class="grid__item ' + filetype + '">' + $icon + '</div><label>jlsdjlk</label></div>'),
+		
+		$('#grid').append($card);
 
 		function getType() {
 			var d = file.lastIndexOf('.');

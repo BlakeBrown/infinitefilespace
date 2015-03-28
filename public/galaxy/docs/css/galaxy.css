@@ -1332,6 +1332,10 @@ alert {
     _______
 */
 .grid__item {
-  overflow: hidden; }
+  overflow: hidden;
+  background: #3592dd; }
+
+body {
+  font-family: "Lucida Grande"; }
 
 /*# sourceMappingURL=galaxy.css.map */
