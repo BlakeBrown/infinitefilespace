@@ -1,6 +1,7 @@
 var app = require('express')();
 var http = require('http').Server(app);
 var Dropbox = require('dropbox');
+var fs = require('fs');
 
 // This is our infinity-HackWesternReal Dropbox app info.
 var client = new Dropbox.Client({
@@ -13,12 +14,36 @@ client.authDriver(new Dropbox.AuthDriver.NodeServer(8191));
 client.authenticate(function (err, client) {
 	if (err) return showError(err);
 
-	console.log('succesful authentication:');
+	console.log('successful authentication:');
 	client.getAccountInfo(function (err, data) {
 		if (err) return showError(err);
 
 		console.log(data.email);
 	});
+
+    client.writeFile("hello_world.txt", "Hello, world!\n", function(error, stat) {
+        if (error) {
+            return showError(error);
+        }
+
+        console.log('File created and uploaded');
+    });
+
+    fs.readFile("test.png", function(error, data) {
+        // No encoding passed, readFile produces a Buffer instance
+        if (error) {
+            return showError(error);
+        }
+        console.log('test.png has been read');
+
+        client.writeFile("test.png", data, function(error, stat) {
+            if (error) {
+                return showError(error);
+            }
+            console.log('test.png has been written');
+        });
+    });
+
 	client.readdir('/', function (err, entries) {
 		if (err) return showError(err);
 
