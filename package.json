@@ -1,0 +1,16 @@
+{
+  "name": "infinity",
+  "version": "1.0.0",
+  "description": "Hack Western 2015 project",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AndyF/infinity.git"
+  },
+  "dependencies": {
+    "express": "^4.10.2"
+  }
+}
