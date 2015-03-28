@@ -72,6 +72,7 @@ a:hover, a:focus {
 /* Header */
 .codrops-header {
 	letter-spacing: -1px;
+	margin-bottom: 15px;
 }
 
 .codrops-header h1 {
@@ -88,10 +89,6 @@ a:hover, a:focus {
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	opacity: 0.3;
 	letter-spacing: 0px;
-}
-
-header {
-	margin-bottom: 15px;
 }
 
 @media screen and (max-width: 27em) {

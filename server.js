@@ -1,4 +1,7 @@
-var app = require('express')();
+var express = require('express');
+var path = require("path");
+var app = express();
+app.use(express.static(path.join(__dirname, '/')));
 var http = require('http').Server(app);
 var Dropbox = require('dropbox');
 var fs = require('fs');
