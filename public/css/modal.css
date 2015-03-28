@@ -25,7 +25,14 @@
 }
 
 .grid_photo {
-	background-image: url('../../../img/gallery_photos/waves.jpeg');
+	background-size: cover !important;
+	background-repeat: no-repeat;
+	transition: opacity 0.4s;
+}
+
+.grid_photo:hover {
+	cursor: zoom-in;
+	opacity: 0.8;
 }
 
 .is-dragging {

@@ -7,20 +7,26 @@ $(document).ready(function () {
 			return;
 		}
 		data.forEach(addFile);
-		initFiles();
+		// initFiles();
 	});
 
 	function addFile(file) {
-		var filetype = getType(),
-		$icon = '<i class="fa fa-fw fa-file-' + getIcon(filetype) + '"></i>';
-		$card = $('<div g="column"><div class="grid__item ' + filetype + '">' + $icon + '</div><label>jlsdjlk</label></div>'),
+
+		var filetype = getType();
+		if(!file.hasThumbnail) {
+			$icon = '<i class="fa fa-fw fa-file-' + getIcon(filetype) + '"></i>';
+			$card = $('<div g="column"><div class="grid__item ' + filetype + '">' + $icon + '</div><label>' + file.name + '</label></div>');
+		} else {
+			$icon = '';
+			$card = $('<div g="column"><div class="grid__item grid_photo ' + filetype + '" style="background-image: url(' + file.thumbnailUrl + ')">' + $icon + '</div><label>' + file.name + '</label></div>');
+		}
 		
 		$('#grid').append($card);
 
 		function getType() {
-			var d = file.lastIndexOf('.');
+			var d = file.name.lastIndexOf('.');
 			if (d < 0) return 'unknown';
-			var ext = file.substring(d+1);
+			var ext = file.name.substring(d+1);
 			//make sure to return fontawesome classnames
 			if (['png','jpg','jpeg','gif'].indexOf(ext) >= 0) return 'image';
 			if (['mp3','flac','ogg','wav'].indexOf(ext) >= 0) return 'audio';
