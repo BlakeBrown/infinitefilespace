@@ -1,20 +1,15 @@
-.grid {
-	margin: 0 auto;
-	max-width: 50em;
-	padding: 0 1em;
-}
+
 
 .grid__item {
-	display: inline-block;
-	margin: 0.2em 0.1em;
-	padding-top: 2.25em;
-	width: 5.5em;
-	height: 5.5em;
+	padding-top: 1.5em;
+	padding-left: 1.5em;
+	width: 4em;
+	height: 3.5em;
 	font-size: 2em;
 	border-radius: 4px;
 	background: #f4a8a8;
 	color: #fff;
-	text-align: center;
+	box-shadow: 0 1px 1px 0 rgba(0,0,0,.2);
 }
 
 .grid__item:hover {
@@ -26,6 +21,7 @@
 .grid__item:active {
 	cursor: -webkit-grabbing;
 	cursor: grabbing;
+	border-color: $primary-color;
 }
 
 .grid_photo {
