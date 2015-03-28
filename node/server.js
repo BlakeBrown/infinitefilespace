@@ -24,31 +24,15 @@ function getFiles(callback) {
 			console.log(data.email);
 		});
 
-	    client.writeFile("hello_world.txt", "Hello, world!\n", function (error, stat) {
-	        if (error) return showError(error);
-	        console.log('File created and uploaded');
-	    });
-
-	    fs.readFile("files/test.png", function (error, data) {
-	        // No encoding passed, readFile produces a Buffer instance
-	        if (error) return showError(error);
-	        console.log('test.png has been read');
-	        client.writeFile("test.png", data, function (error, stat) {
-	            if (error) return showError(error);
-	            console.log('test.png has been written');
-	        });
-	    });
+        // readdir won't print test.txt because this isn't properly chained up with Promises but submitFile does work.
+        //submitFile("files/test.txt");
 
 		client.readdir('/', function (error, entries, folder_data, file_data) {
 			if (error) return showError(error);
 
 			callback(file_data);
-
 		});
 
-		function showError (error) {
-		    console.log(error.status);
-		};
 	});
 }
 
@@ -66,7 +50,6 @@ function copyDropboxData(curServerFile, curFile, callback) {
 	client.makeUrl(curServerFile.path, {downloadHack: true}, function (error, file_data) {
 		file_url = file_data.url;
 		curFile.url = file_url;
-		console.log("HELLOOOOOO");
 		if(curServerFile.hasThumbnail) {
 			curFile.hasThumbnail = true;
 		}
@@ -76,6 +59,39 @@ function copyDropboxData(curServerFile, curFile, callback) {
 }
 
 app.get('/files', function (req, res) {
+
+	function showError (error) {
+	    console.log(error.status);
+	};
+
+	// filepath will look like "files/test.png" which is located in ~/filespace/files/test.png
+	function submitFile(filepath) {
+	    fs.readFile(filepath, function (error, data) {
+	        if (error) return showError(error);
+	        console.log(filepath.concat(' has been found in filesystem'));
+
+	        // NOTE: Only works for one file
+	        var parts = filepath.split("/");
+	        var filename = parts[parts.length - 1];
+	        console.log(filename.concat(' has been substringed from the filepath'));
+	        client.writeFile(filename, data, function (error, stat) {
+	            if (error) return showError(error);
+	            console.log(filepath.concat(' has been written'));
+	        });
+	    });
+	}
+
+	// request.body will be the filepath?
+	// TODO may be app.get
+	//app.post('/upload', function (req, res) {
+	//    console.log('user has entered upload page');
+	//    submitFile(req.body.text);
+	    //
+	    //console.log("req.body ".concat(req.body));
+	    //console.log("req ".concat(req));
+	    //this result will be logged in the onComplete of the post in script.js
+	    //res.send('hi');
+	//});
 
 	// Client files is the JSON object we send to the client, files is the JSON object from dropbox api
 	var clientFiles = [];
@@ -102,10 +118,15 @@ app.get('/files', function (req, res) {
 			});
 		}
 	});
+
 });
 
 app.get('/', function (req, res) {
 	res.sendFile(__dirname + '/public/index.html');
+});
+
+app.post('/upload', function (req, res) {
+	
 });
 
 http.listen(3000, function() {
