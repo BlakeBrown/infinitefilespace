@@ -12,10 +12,14 @@ $(document).ready(function () {
 
 	function addFile(file) {
 		var $file = document.createElement('div'),
-			$icon = document.createElement('i');
+			$icon = document.createElement('i'),
+			$filename = document.createElement('p');
 		$file.className = 'grid__item';
-		$icon.className = 'fa-fw fa-file';
+		$icon.className = 'fa fa-fw fa-file-image-o';
+		$filename.innerHTML = file;
+
 		$file.appendChild($icon);
+		$file.appendChild($filename);
 		$grid.appendChild($file);
 	}
 

@@ -1331,5 +1331,7 @@ alert {
     This is the SASS that overrides Galaxy.
     _______
 */
+.grid__item {
+  overflow: hidden; }
 
 /*# sourceMappingURL=galaxy.css.map */
