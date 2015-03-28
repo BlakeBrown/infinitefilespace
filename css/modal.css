@@ -28,6 +28,10 @@
 	cursor: grabbing;
 }
 
+.grid_photo {
+	background-image: url('../../../img/gallery_photos/waves.jpeg');
+}
+
 .is-dragging {
 	background: #df7a80;
 }
