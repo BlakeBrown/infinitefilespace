@@ -8,6 +8,7 @@ Setup
 
 * `git clone git@github.com:AndyF/infinity.git`
 * `cd infinity`
+* `npm install dropbox`
 * `npm install`
 * `npm start`
 * visit `http://localhost:3000`
