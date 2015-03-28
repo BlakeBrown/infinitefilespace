@@ -7,19 +7,19 @@ Setup
 ---
 
 * `git clone git@github.com:AndyF/filespace.git`
-* `cd filespace/NodePlusFrontend`
+* `cd filespace/node`
 * `npm install`
 
 Grunt
 ---
 
-* get in `filespace/NodePlusFrontend/public/galaxy/`
+* get in `filespace/node/public/galaxy/`
 * `npm install`
 * `grunt`
 
 Running
 ---
 
-* get in `filespace/NodePlusFrontend`
+* get in `filespace/node`
 * `npm start`
 * visit `http://localhost:3000`
