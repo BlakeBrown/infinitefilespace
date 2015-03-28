@@ -11,41 +11,32 @@ var client = new Dropbox.Client({
 
 client.authDriver(new Dropbox.AuthDriver.NodeServer(8191));
 
-client.authenticate(function (err, client) {
-	if (err) return showError(err);
+client.authenticate(function (error, client) {
+	if (error) return showError(error);
 
 	console.log('successful authentication:');
-	client.getAccountInfo(function (err, data) {
-		if (err) return showError(err);
-
+	client.getAccountInfo(function (error, data) {
+		if (error) return showError(error);
 		console.log(data.email);
 	});
 
-    client.writeFile("hello_world.txt", "Hello, world!\n", function(error, stat) {
-        if (error) {
-            return showError(error);
-        }
-
+    client.writeFile("hello_world.txt", "Hello, world!\n", function (error, stat) {
+        if (error) return showError(error);
         console.log('File created and uploaded');
     });
 
-    fs.readFile("test.png", function(error, data) {
+    fs.readFile("test.png", function (error, data) {
         // No encoding passed, readFile produces a Buffer instance
-        if (error) {
-            return showError(error);
-        }
+        if (error) return showError(error);
         console.log('test.png has been read');
-
-        client.writeFile("test.png", data, function(error, stat) {
-            if (error) {
-                return showError(error);
-            }
+        client.writeFile("test.png", data, function (error, stat) {
+            if (error) return showError(error);
             console.log('test.png has been written');
         });
     });
 
-	client.readdir('/', function (err, entries) {
-		if (err) return showError(err);
+	client.readdir('/', function (error, entries) {
+		if (error) return showError(error);
 
 		console.log('entries:');
 		entries.forEach(function (entry) {
@@ -62,38 +53,6 @@ http.listen(3000, function() {
 	console.log('listenining on *:3000');
 });
 
-var showError = function(error) {
-    switch (error.status) {
-        case Dropbox.ApiError.INVALID_TOKEN:
-            console.log('error invalid token');
-            break;
-
-        case Dropbox.ApiError.NOT_FOUND:
-            console.log('error not found');
-            break;
-
-        case Dropbox.ApiError.OVER_QUOTA:
-            console.log('error over quota');
-            break;
-
-        case Dropbox.ApiError.RATE_LIMITED:
-            console.log('error rate limited');
-            break;
-
-        case Dropbox.ApiError.NETWORK_ERROR:
-            console.log('error network error');
-            break;
-
-        case Dropbox.ApiError.INVALID_PARAM:
-            console.log('error invalid param');
-            break;
-        case Dropbox.ApiError.OAUTH_ERROR:
-            console.log('error oauth error');
-            break;
-        case Dropbox.ApiError.INVALID_METHOD:
-            console.log('error invalid method');
-        default:
-            console.log('error default');
-            break;
-    }
+function showError (error) {
+    console.log(error.status);
 };
