@@ -11,6 +11,7 @@
     "url": "https://github.com/AndyF/infinity.git"
   },
   "dependencies": {
+    "dropbox": "^0.10.3",
     "express": "^4.10.2",
     "nodemon": "^1.3.7"
   }
