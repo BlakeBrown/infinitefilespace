@@ -28,7 +28,7 @@ client.authenticate(function (error, client) {
         console.log('File created and uploaded');
     });
 
-    fs.readFile("test.png", function (error, data) {
+    fs.readFile("files/test.png", function (error, data) {
         // No encoding passed, readFile produces a Buffer instance
         if (error) return showError(error);
         console.log('test.png has been read');
@@ -42,10 +42,17 @@ client.authenticate(function (error, client) {
 		if (error) return showError(error);
 
 		console.log('entries:');
+		files = entries;
 		entries.forEach(function (entry) {
 			console.log(entry);
 		});
 	});
+});
+
+var files;
+
+app.get('/files', function (req, res) {
+	res.json(files);
 });
 
 app.get('/', function (req, res) {
