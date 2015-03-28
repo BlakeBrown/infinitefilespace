@@ -1,0 +1,199 @@
+* { box-sizing: border-box } 
+
+section {
+    display: flex;
+    // flex-wrap: wrap;
+    flex-flow: row wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    
+    [g~="centered"] {
+        justify-content: center;
+    }
+}
+
+[g~="column"], [g~="content"] {
+    display: flex;
+    flex-direction: column;
+}
+
+[g~="block"], [g~="row"] {
+    display: flex;
+    justify-spacing: space-around;
+}
+
+[g~="inline"] {
+    display: inline-flex;
+    justify-spacing: space-around;
+}
+
+[g~="1"], [g~="2"], [g~="3"], [g~="4"], [g~="5"], [g~="6"], [g~="7"], [g~="8"], [g~="9"], [g~="10"], [g~="11"], [g~="12"] {
+    display: flex;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+// Grid columns
+
+@for $i from 0 through 12 {
+    $size: $i / 12 * 100%;
+    [g~="#{$i}"] {
+        width: $size;
+    }
+}
+
+// Offsets
+@for $i from 0 through 12 {
+    $size: $i / 12 * 100%;
+    [g~="offset-#{$i}"] {
+        margin-left: $size;
+    }
+}
+
+// @each $point in $bp { // Responsive grid columns in one loop (needs to be fixed)
+//     @each $prefix in $bp-prefix {
+//         @media screen and (max-width: $point) {
+//             @for $i from 0 through 12 {
+//                 $size: $i / 12 * 100%;
+//                 [g~="#{$prefix}-#{$i}"] {
+//                     width: $size;
+//                 }
+//             }
+//         }
+//     }
+// }
+
+
+// @each $point in $bp { // Responsive grid offsets in one loop (needs to be fixed)
+//     @each $prefix in $bp-prefix {
+//         @media screen and (max-width: $point) {
+//             @for $i from 0 through 12 {
+//                 $size: $i / 12 * 100%;
+//                 [g~="#{$prefix}-offset-#{$i}"] {
+//                     margin-left: $size;
+//                 }
+//             }
+//         }
+//     }
+// }
+
+
+// Containers
+@for $i from 1 through length($bp) {
+    [g~="#{nth($bp-prefix, $i)}-container"] {
+        max-width: nth($bp, $i);
+    }
+}
+
+[g~="top"] {
+    align-items: flex-start;
+}
+[g~="right"], [g~="end"] {
+    justify-content: flex-end;
+    text-align: end;
+}
+
+[g~="bottom"] {
+    align-items: flex-end;
+}
+
+[g~="left"], [g~="start"] {
+    justify-content: flex-start;
+    text-align: start;
+}
+
+[g~="centered"] {
+    @include center;
+    &:not(section) {
+        align-self: center;
+    }
+}
+
+[g~="middle"] {
+    align-items: center;
+}
+
+[g~="around"] {
+    justify-content: space-around;
+}
+[g~="between"] {
+    justify-content: space-between;
+}
+[g~="first"] {
+    order: -1;
+}
+[g~="last"] {
+    order: 1;
+}
+
+
+@mixin xsm_grid-columns {
+    @for $i from 0 through 12 {
+        $size: $i / 12 * 100%;
+        @media screen and (max-width: $xsm-breakpoint) {
+            [g~="xsm-#{$i}"] {
+                width: $size;
+                flex: none;
+            }
+        }
+    }
+}
+
+@mixin sm_grid-columns {
+    @for $i from 0 through 12 {
+        $size: $i / 12 * 100%;
+        @media screen and (max-width: $sm-breakpoint) {
+            [g~="sm-#{$i}"] {
+                width: $size;
+                flex: none;
+
+            }
+        }
+    }
+}
+
+@mixin md_grid-columns {
+    @for $i from 0 through 12 {
+        $size: $i / 12 * 100%;
+        @media screen and (max-width: $md-breakpoint) {
+            [g~="md-#{$i}"] {
+                width: $size;
+                flex: none;
+
+            }
+        }
+    }
+}
+
+@mixin lg_grid-columns {
+    @for $i from 0 through 12 {
+        $size: $i / 12 * 100%;
+        @media screen and (max-width: $lg-breakpoint) {
+            [g~="lg-#{$i}"] {
+                width: $size;
+                flex: none;
+
+            }
+        }
+    }
+}
+
+@mixin xlg_grid-columns {
+    @for $i from 0 through 12 {
+        $size: $i / 12 * 100%;
+        @media screen and (max-width: $xlg-breakpoint) {
+            [g~="xlg-#{$i}"] {
+                width: $size;
+                flex: none;
+
+            }
+        }
+    }
+}
+
+@include xsm_grid-columns;
+@include sm_grid-columns;
+@include md_grid-columns;
+@include lg_grid-columns;
+@include xlg_grid-columns;

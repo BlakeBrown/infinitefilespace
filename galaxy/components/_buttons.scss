@@ -1,0 +1,123 @@
+/*
+    -------
+    GALAXY/BUTTONS
+    _______
+*/
+
+button, input[type="submit"] {
+    border: 0;
+    background: #fff;
+    color: $primary-color;
+    // @include button-colors($default-color);
+    padding: .75em 1.5em;
+    font-weight: 400;
+    font-size: 1em;
+    cursor: pointer;
+    text-align: center;
+    height: auto;
+    text-shadow: rgba(0, 0, 0, 0.50) 0px 0.5px 0;
+    border-radius: $border-radius;
+    [g~="floating"] {
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    // Material design
+    &:hover {
+        background: $default-color;
+    }
+    &:active {
+        background: darken($default-color, 5);
+    }
+    &[g~="primary"] {
+
+        @include button-colors($primary-color);
+        &:hover {
+            background: lighten($primary-color, 5);
+        }
+        &:active, &.active {
+            background: darken($primary-color, 10);
+        }
+        &:focused {
+            // box-shadow: inset 0px 0px 0px 2px rgba(255, 255, 255, 0.15);
+          box-shadow: 0px 0px 0px 2px #a0d1fa,inset 0 0 0 0 #000;
+        }
+    }
+    &[g~="success"] {
+        @include button-colors($success-color);
+        &:hover {
+            background: lighten($success-color, 5);
+        }   
+        &:active, &.active {
+            background: darken($success-color, 5);
+        }
+    }
+    &[g~="warning"] {
+        @include button-colors($warning-color);
+        &:hover {
+            background: lighten($warning-color, 15);
+        }
+        &:active {
+            background: darken($warning-color, 10);
+        }
+    }
+    &[g~="danger"] {
+        @include button-colors($danger-color);
+        &:hover {
+            background: lighten($danger-color, 15);
+        }
+        &:active {
+            background: darken($danger-color, 15);
+        }
+    }
+    &[g~="disabled"] {
+        border: 0;
+        background-image: none !important;
+        background: none !important;
+        opacity: .4;
+        cursor: not-allowed;
+        box-shadow: none;
+    }
+    &[g~="grouped"] {
+        position: relative;
+        vertical-align: middle;
+    }
+    &[g~="large"] {
+        padding: 1em 2em;
+        font-size: 1.2em;
+    }
+    &[g~="small"] {
+        padding: .5em 1.5em;
+        font-size: .9em;
+    }
+    &[g~="rounded"] {
+        border-radius: $lg-border-radius;
+    }
+}
+div[g~="dropdown"] {
+    position: relative;
+    & button {
+        & + ul {
+            display: none;
+            left: 0;
+            box-sizing: border-box;
+            width: 200px;
+            background: #FFF;
+            color: #666;
+            vertical-align: top;
+            // border: 1px solid #D3D3D3;
+            border-radius: $md-border-radius;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 0;
+            position: absolute;
+            & li {
+                padding: $sm-margin $lg-margin;
+                cursor: pointer;
+                &:hover {
+                    background: #eee;
+                }
+            }
+        }
+        &.active + ul {
+            display: block;
+        }
+    }
+}

@@ -1,0 +1,135 @@
+
+	// -------
+	// GLOBALS
+	// _______
+
+	// You can configure your globals in _settings.scss
+
+// Global settings and styles must be imported. Without it, there will be no consistency and Galaxy won't compile.
+
+ // -- COLOR
+
+ /*
+#FF6461 red
+#37CDFF blue
+#BDA6FF purple
+#6ee9ab green
+*/
+
+$light-shadow: #eee;
+$dark-shadow: darken($light-shadow, 10);
+
+$dark-border: #CCCCCC;
+$light-border: #EEEEEE;
+
+$nav-color: #fff;
+$footer-background-color: #fff;
+
+$dark-color: #181818;
+$light-color: #FFFFFF;
+
+$default-color: #F2F2F2;
+$primary-color: #3592dd;
+$success-color: #CDDC39;
+$warning-color: #FF9800;
+$danger-color: #F44336;
+
+// --- BORDERS
+
+$sm-border-radius: 0.15em;
+$md-border-radius: 0.25em;
+$lg-border-radius: 0.6em;
+$border-radius: $sm-border-radius;
+$rounded: 50%;
+
+// --- BREAKPOINTS
+
+$xlg-breakpoint: 1440px;
+$lg-breakpoint: 970px;
+$md-breakpoint: 767px;
+$sm-breakpoint: 448px;
+$xsm-breakpoint: 259px;
+
+$bp: $xsm-breakpoint, $sm-breakpoint, $md-breakpoint, $lg-breakpoint, $xlg-breakpoint; // For responsiveness loop
+$bp-prefix: xsm, sm, md, lg, xlg;
+
+// --- TRANSPARENCY
+
+$high-opacity: 0.7;
+$md-opacity: 0.8;
+$low-opacity: 0.9;
+
+// --- PADDING & MARGIN
+
+$sm-padding: 0.5em;
+$md-padding: 1em;
+$lg-padding: 2em;
+
+$sm-margin: 0.5em;
+$md-margin: 1em;
+$lg-margin: 1.5em;
+
+// --- TYPOGRAPHY
+
+$sans-serif: "Helvetica Neue", Helvetica, Helvetica, Arial, sans-serif;
+$serif: "Georgia", serif;
+$monospace: Menlo, Monaco, Consolas, "Courier New", monospace;
+$font-size: 18px;
+$font-weight: 300;
+
+// --- GRID
+
+@mixin center {
+	align-self: center;
+	justify-content: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+@mixin button-colors($button-color) {
+	border-color: darken($button-color, 10);
+	background: $button-color;
+	color: lighten(contrast-color($button-color), 50);
+}
+
+@function contrast-border($bg-color) {
+	@if lightness($bg-color) > 90 {
+		@return $light-shadow-color;
+	}
+	@else if lightness($bg-color) > 80 {
+		@return #dddddd;
+	}
+	@else if lightness($bg-color) > 50 {
+		@return $dark-border-color;
+	}
+	@else {
+		@return $font-color;
+	}
+}
+
+@function contrast-color($bg-color) {
+	@if lightness($bg-color) > 90 {
+		@return $dark-color;
+	}
+	@else {
+		@return $light-color;
+	}
+}
+
+@function contrast-bg($color) {
+	@if lightness($nav-color) > 50 {
+		@return contrast-color($nav-color);
+	}
+	@elseif lightness($nav-color) < 50 {
+		@return darken(contrast-color($nav-color), 50)
+	}
+}
+
+
+// --- MISC
+
+@mixin alert-color($color) {
+	color: darken($color, 50);
+	background: $color;
+	border: darken($color, 25) 1px solid;
+}

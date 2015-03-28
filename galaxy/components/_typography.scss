@@ -1,0 +1,91 @@
+/*
+	-------
+	GALAXY/TYPOGRPAHY
+	_______
+	Customize the settings in _settings.scss
+*/
+
+body {
+    outline: 0;
+    margin: 0;
+    text-rendering: optimizelegibility;
+    line-height: 1.7em;
+    color: rgba(#000, .9);
+    transition-duration: .3s;
+    min-height: 100vh;
+    position: absolute;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: $font-size;
+    font-family: $sans-serif;
+}
+
+$headings: h1 h2 h3 h4 h5 h6;
+
+h1, h2, h3, h4, h5, h6 {
+	display: block;
+	text-rendering: optimizeLegibility;
+	line-height: 1.4;
+}
+
+p, ul {
+	font-weight: $font-weight;
+}
+
+strong, b {
+	font-weight: $font-weight + 100;
+}
+@each $heading in $headings {
+	$i: index($headings, $heading);
+	$shade: 13 * $i;
+	#{$heading} {
+		// color: rgba(0, 0, 0, (113 - $shade)/ 100);
+		line-height: 1.3em;
+		font-size: 2.6em - $i / 3;
+		font-weight: $font-weight;
+	}
+}
+
+blockquote {
+	border-left: $primary-color 5px solid;
+	padding-left: 1em;
+}
+
+a {
+	color: $primary-color;
+	cursor: pointer;
+	opacity: 1;
+	text-decoration: none;
+	padding: 0;
+	&:hover {
+		color: lighten($primary-color, 10);
+	}
+}
+
+code {
+	font-family: $monospace;
+	font-weight: 500;
+	color: #111;
+	font-size: 15px;
+	border-radius: 2px;
+}
+
+pre {
+	display: block;
+	box-sizing: border-box;
+	white-space: pre;
+	word-wrap: normal;
+	border: rgba($light-shadow, .8) 3px solid;
+}
+
+[g~="bold"] {
+	font-weight: bold;
+}
+
+[g~="italic"] {
+	font-style: italic;
+}
+
+blockquote {
+	margin-left: 0;
+}
