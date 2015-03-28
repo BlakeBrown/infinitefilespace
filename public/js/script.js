@@ -16,11 +16,20 @@ $(document).ready(function () {
 			$filename = document.createElement('p');
 		$file.className = 'grid__item';
 		$icon.className = 'fa fa-fw fa-file-image-o';
-		$filename.innerHTML = file;
+		$filename.innerHTML = getType();
 
 		$file.appendChild($icon);
 		$file.appendChild($filename);
 		$grid.appendChild($file);
+
+		function getType() {
+			var d = file.lastIndexOf('.');
+			if (d < 0) return 'unknown';
+			var ext = file.substring(d+1);
+			if (['png','jpg','jpeg','gif'].indexOf(ext) >= 0) return 'image';
+			if (['txt','doc','docx'].indexOf(ext) >= 0) return 'text';
+			return ext;
+		}
 	}
 
 	function initFiles() {
