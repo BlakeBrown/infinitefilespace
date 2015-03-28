@@ -24,20 +24,8 @@ function getFiles(callback) {
 			console.log(data.email);
 		});
 
-	    client.writeFile("hello_world.txt", "Hello, world!\n", function (error, stat) {
-	        if (error) return showError(error);
-	        console.log('File created and uploaded');
-	    });
-
-	    fs.readFile("files/test.png", function (error, data) {
-	        // No encoding passed, readFile produces a Buffer instance
-	        if (error) return showError(error);
-	        console.log('test.png has been read');
-	        client.writeFile("test.png", data, function (error, stat) {
-	            if (error) return showError(error);
-	            console.log('test.png has been written');
-	        });
-	    });
+        // readdir won't print test.txt because this isn't properly chained up with Promises but submitFile does work.
+        //submitFile("files/test.txt");
 
 		client.readdir('/', function (error, entries, folder_data, file_data) {
 			if (error) return showError(error);
@@ -52,11 +40,42 @@ function getFiles(callback) {
 			// console.log('======= END OF ENTRIES =========');
 		});
 
-		function showError (error) {
-		    console.log(error.status);
-		};
 	});
 }
+
+function showError (error) {
+    console.log(error.status);
+};
+
+// filepath will look like "files/test.png" which is located in ~/filespace/files/test.png
+function submitFile(filepath) {
+    fs.readFile(filepath, function (error, data) {
+        if (error) return showError(error);
+        console.log(filepath.concat(' has been found in filesystem'));
+
+        // NOTE: Only works for one file
+        var parts = filepath.split("/");
+        var filename = parts[parts.length - 1];
+        console.log(filename.concat(' has been substringed from the filepath'));
+        client.writeFile(filename, data, function (error, stat) {
+            if (error) return showError(error);
+            console.log(filepath.concat(' has been written'));
+        });
+    });
+}
+
+// request.body will be the filepath?
+// TODO may be app.get
+//app.post('/upload', function (req, res) {
+//    console.log('user has entered upload page');
+//    submitFile(req.body.text);
+    //
+    //console.log("req.body ".concat(req.body));
+    //console.log("req ".concat(req));
+    //this result will be logged in the onComplete of the post in script.js
+    //res.send('hi');
+//});
+
 
 app.get('/files', function (req, res) {
 

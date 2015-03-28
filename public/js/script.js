@@ -1,14 +1,41 @@
 $(document).ready(function () {
 	var $grid = document.getElementById('grid');
 
+    // NOTE: our getFiles call authenticates the user and that's triggered when the user goes to files.
+    // This means that we need to put all authentication-required code here.
 	$.getJSON('files', function (data) {
 		if (!data || data.length === 0) {
 			console.log('error retrieving files');
 			return;
 		}
 		data.forEach(addFile);
-		// initFiles();
+		initFiles();
+
+        /*var postrequest = $.post('upload', {
+         text: 'sdf'
+         });
+
+         postrequest.done(function (data) {
+         console.log(data);
+         });*/
+
+        //$.post("/upload",
+        //    {
+        //        text: "hey REST!"
+        //    }, dataUpdateSuccessHandler);
 	});
+
+    //function dataUpdateCompleteHandler(data) {
+    //    console.log("complete: " + data);
+    //}
+    //
+    //function dataUpdateSuccessHandler() {
+    //    console.log("success");
+    //}
+    //
+    //function dataUpdateErrorHandler(error) {
+    //    console.log("error ".concat(error));
+    //}
 
 	function addFile(file) {
 
