@@ -1,0 +1,129 @@
+article
+  .intro
+    h1 State Toggle
+    h2 A simple way to create a relationship between 2 elements
+
+    p The State Toggle tool provides a simple mechanism to create a relationship between any 2 HTML elements you have on the screen or available to the user at any given time.
+
+    p At a basic level: let's say you have a button, and you want another element on the screen to do something when the user clicks that button, then this utility should be useful to you.
+
+    p In its most basic implementation, this tool is not the most robust as it does not offer things such as templating solutions for a structure that is repeatedly used, but it is likely the most simple and efficient.
+
+    p It is fun to use, and ideal for rapid prototypes, hackathons, and likely has a place in any project that features user interaction.
+
+    p Think about Lightboxes, modals, dropdown menus, tooltips. Instead of using 4 different tools or sets of markup for interactions that are fundamentally the same thing, you can insert State Toggle, and it will take care of you.
+    
+    p This tool is being actively updated as people say things like "Yeah, this is kind of cool, but it would be better if it did ______________".
+
+  .example(example='1')
+    h1 Example 1: Basic Toggle
+    p Let's say you have a button, and you want something to happen when you press it.
+    p This is the solution for you.
+
+    .toggle_set
+      button(st-role='trigger', st-group='Light up!', st-state='active') Light Switch
+
+      .light(st-role='target', st-group='Light up!')
+        p We could use some light in here.
+
+  .example(example='2')
+    h1 Example 2: Reset 
+    p Let's say you have a whole bunch of items that are toggling different things, but you want the things being toggled to only be active one at a time.
+    p This right here would be the solution for you.
+    p This could arguably be done more efficiently by toggling the state of the parent container of all these elements, but hey, when you have something this flexible, who needs efficiency?
+
+    .toggle_set
+      nav
+        button(st-role='trigger', st-group='Option 1', st-state='current', st-remove='current') Option 1
+        button(st-role='trigger', st-group='Option 2', st-state='current', st-remove='current') Option 2
+        button(st-role='trigger', st-group='Option 3', st-state='current', st-remove='current') Option 3
+      .displays
+        .display.current(st-role='target', st-group='Option 1')
+          h1 Option 1
+        .display(st-role='target', st-group='Option 2')
+          h1 Option 2
+        .display(st-role='target', st-group='Option 3')
+          h1 Option 3
+
+  .example(example='3')
+    h1 Example 3: Toggle Multiple Classes
+    p You want to toggle multiple classes? 
+    p Fine. Go for it.
+
+    .toggle_set
+      button(st-role='trigger', st-group='2 things at once!', st-state='change_color rotate') Do more than 1 thing
+
+      .two_things(st-role='target', st-group='2 things at once!')
+        p Watch out now!
+
+  .example(example='4')
+    h1 Example 4: Prevent State Toggle until something happens
+    p You want some protection.
+    p We understand.
+    p Think about form validation. Think about needing a key to enter a door. Think about the Legend of Zelda.
+    p One thing to keep in mind with this example is that the thing that is 'activating' the toggle to be able to work is just a matter of the 'ready' attribute being set to 'true'. This can be done in any elaborate way you want it to be done (and by elaborate, it means that you would need to write your own Javascript function). 
+    p In this scenario, we have a pre-built function listening for a click event on the second button which 'activates' the first button.
+
+    .toggle_set
+      button(st-role='trigger', st-group='Locked Out!', st-state='open', st-ready='false') Open the Door
+      button(st-role='activate', st-group="Locked Out!") Grab the Key First!
+
+      .door(st-role='target', st-group='Locked Out!')
+      
+  .example(example='5')
+    h1 Example 5: Modal / Lightbox Window (Multiple Toggles for One Element)
+    p You need a modal or lightbox window?
+    p Got it
+    p This example is actually a great instance of having multiple toggles for one element. In this scene, we will see how our lightbox can be activated by the launch button, and dismissed by either the background or the close button.
+
+    .toggle_set
+      button(st-role='trigger', st-group='Modal', st-state='active') Launch!
+      
+      .modal(st-role='target', st-group='Modal')
+        .modal_background(st-role='trigger', st-group='Modal', st-state='active')
+        .content
+          h1 Is it that easy?
+          button(st-role='trigger', st-group='Modal', st-state='active') Yup. Close Modal.
+
+  .example(example='6', st-role='trigger', st-group='Dropdown', st-state='open', st-restrict='off')
+    h1 Example 6: Dropdown Menu
+    p This example has two unique factors at play. 
+    ol
+      li First of all, the dropdown menu should open when the option is clicked to open the menu. 
+      li Second, the menu should be closed by clicking the open toggle, or ANYWHERE outside of the menu (within its parent container).
+    p What this means is that we have an instance of the parent element acting as a toggle for one of its child elements, and the parent element is only able to toggle off, but not on.
+    p Is this even possible?!
+    p Do not fret, fellow interface programmer - we have this all under control.
+    
+    .toggle_set
+      button(st-role='trigger', st-group='Dropdown', st-state='open') Dropdown menu!
+      
+      .menu(st-role='target', st-group='Dropdown')
+        ul
+          li
+            a Link 1
+          li
+            a Link 2
+          li
+            a Link 3
+            
+      p And let's put some extra text in here to make sure we can see how the dropdown will go over top of all of the content beneath it (for demondstration purposes only).
+   
+
+  .description
+    h1 Enough with the examples, how does it work?
+    h2 Here are the facts
+    ol
+      li Two elements can be tied together using the 'instance' attribute. If you assign the same value to the 'instance' attribute or two or more elements, it means you are creating a relationship between them. It is your way of saying: "You see these elements here? They interact with one another."
+      li Within your set of elements, one or more of them can act as a 'toggle' switch, and the others can act as a 'component' target. This is done by setting the 'state-toggle' attribute to 'toggle' or 'component'
+      li The 'toggling' of a component is, for all intents and purposes, nothing more than assigning one or more values to the class attribute of the target 'component'. To determine which class attribute is assigned to the target component, you can use the 'state' attribute. To set multiple values to the target component, you can use a space separated list of words, such as 'state="horse mountain tennis champs"'. If you did that, you would be adding 4 class names to your target component.
+    p Aside from these basic principles, there are some advanced use cases you can take advantage of.
+    ol
+      li If you have a situation where there are multiple toggles and components with the same class name being assigned to all the target components, you can make use of the 'reset' attribute to make sure that only one instance of a 'toggled' component is ever activated at any given time. Whenever one component is toggled, all of the rest of the components will be reset to their un-toggled state. This is done by setting the 'reset' attribute to the class name that you are looking to toggle.
+      li If you do not want your toggle to be active without some other criteria in your app or site to have been met, you can disable the toggle by setting the 'ready' attribute to 'false'. When the 'ready' attribute is set to 'false', the toggle will not work. Setting the 'ready' attribute to 'true' will enable the toggle.
+      li If you have a toggle, but you only want the toggle to be able to 'un-toggle' something (in other words, only able to remove a class, but not apply one), you can make use of the 'limit' attribute, and set this to 'off'. There is currently no support for an 'on' option here, but we can probably have that in place in the very near future. Maybe even by the time I go to bed, or early tomorrow morning.
+      
+    p And that's pretty much all there is to it. 3 handy attributes that you can apply to your HTML elements to create some extremely versatile relationships. Combine this with some CSS knowledge, and you are a bona fide wrecking ball of interface development.
+    
+    p Happy hacking!
+  

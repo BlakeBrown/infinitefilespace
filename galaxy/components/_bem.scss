@@ -1,0 +1,145 @@
+/*
+	-------
+	GALAXY/BEM
+	_______
+*/
+
+/* Padding */
+
+$padding-sizes: .5em, 1em, 1.5em, 2.5em, 5em;
+
+@for $i from 1 through length($bp) {
+	[g~="#{nth($bp-prefix, $i)}-padding"] {
+		padding: nth($padding-sizes, $i);
+	}
+}
+
+@for $i from 1 through length($bp) {
+	[g~="#{nth($bp-prefix, $i)}-padding-t"] {
+		padding-top: nth($padding-sizes, $i);
+	}
+}
+
+@for $i from 1 through length($bp) {
+	[g~="#{nth($bp-prefix, $i)}-padding-r"] {
+		padding-right: nth($padding-sizes, $i);
+	}
+}
+
+@for $i from 1 through length($bp) {
+	[g~="#{nth($bp-prefix, $i)}-padding-b"] {
+		padding-bottom: nth($padding-sizes, $i);
+	}
+}
+
+@for $i from 1 through length($bp) {
+	[g~="#{nth($bp-prefix, $i)}-padding-l"] {
+		padding-left: nth($padding-sizes, $i);
+	}
+}
+
+@for $i from 1 through length($bp) {
+	[g~="#{nth($bp-prefix, $i)}-padding-tb"] {
+		padding-top: nth($padding-sizes, $i);
+		padding-bottom: nth($padding-sizes, $i);
+	}
+}
+
+@for $i from 1 through length($bp) {
+	[g~="#{nth($bp-prefix, $i)}-padding-lr"] {
+		padding-left: nth($padding-sizes, $i);
+		padding-right: nth($padding-sizes, $i);
+	}
+}
+
+/* Margins */
+
+$margin-sizes: .5em, 1em, 1.5em, 2.5em, 5em;
+
+@for $i from 1 through length($bp) {
+	[g~="#{nth($bp-prefix, $i)}-margin"] {
+		margin: nth($margin-sizes, $i);
+	}
+}
+
+@for $i from 1 through length($bp) {
+	[g~="#{nth($bp-prefix, $i)}-margin-t"] {
+		margin-top: nth($margin-sizes, $i);
+	}
+}
+
+@for $i from 1 through length($bp) {
+	[g~="#{nth($bp-prefix, $i)}-margin-r"] {
+		margin-right: nth($margin-sizes, $i);
+	}
+}
+
+@for $i from 1 through length($bp) {
+	[g~="#{nth($bp-prefix, $i)}-margin-b"] {
+		margin-bottom: nth($margin-sizes, $i);
+	}
+}
+
+@for $i from 1 through length($bp) {
+	[g~="#{nth($bp-prefix, $i)}-margin-l"] {
+		margin-left: nth($margin-sizes, $i);
+	}
+}
+
+@for $i from 1 through length($bp) {
+	[g~="#{nth($bp-prefix, $i)}-margin-tb"] {
+		margin-top: nth($margin-sizes, $i);
+		margin-bottom: nth($margin-sizes, $i);
+	}
+}
+
+@for $i from 1 through length($bp) {
+	[g~="#{nth($bp-prefix, $i)}-margin-lr"] {
+		margin-left: nth($margin-sizes, $i);
+		margin-right: nth($margin-sizes, $i);
+	}
+}
+
+/* Size */
+
+// Float
+
+[g~="center"] {
+	@include center;
+}
+
+[g~="centered"] {
+	@include center;
+	text-align: center;
+}
+
+[g~="left"] {
+	justify-content: start;
+}
+
+[g~="right"] {
+   display: flex;
+   flex-direction: row;
+   justify-content: flex-end;
+}
+
+
+[g~="text-left"] {
+	text-align: left
+}
+
+[g~="text-right"] {
+	text-align: right
+}
+
+[g~="text-center"] {
+	text-align: center
+}
+
+[g~="white"] {
+	color: #fff;
+}
+
+[g~="black"] {
+	color: #000;
+}

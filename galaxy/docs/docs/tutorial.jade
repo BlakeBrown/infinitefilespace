@@ -1,0 +1,48 @@
+.banner(g="centered md-padding-tb")
+
+	h1 Start building apps, easily
+
+.doc(g="center lg-container lg-margin-t xlg-margin-b")
+	
+	div(g="md-container")
+		h2 Installation
+		h3 Cloning Galaxy (full features)
+		p The recommended way of using Galaxy is by cloning a local copy. By doing so, you're able to use SCSS to change configurations and compile that into your own, customized version of Galaxy.
+		ol
+			li Make sure you have Git installed
+			li Clone Galaxy: <pre class="language-none"><code><span class="token tag">git clone</span> https://github.com/AndyF/Galaxy</code></pre>
+		
+		h3 Include the CDN
+		p To take Galaxy's core functionality on a test drive, simply link to Galaxy in your project's head tag:
+		pre.language-markup
+			code &lt;head>https://galaxyui.com/galaxy.css&lt;/head>
+
+	h2 Building basic components
+	section(g="between")
+		div(g="6 md-padding-r md-12 column")
+			h3 Use the g attribute to style elements
+			p Galaxy uses HTML and their attributes rather than classes for styling elements. In doing so, each attribute effectively declares a separate namespace for encapsulating style information, resulting in more readable and maintainable HTML & CSS. For example, a button might have the following markup:
+		<video g="6 md-12" src="/media/primary-button.mp4" width="700" autoplay="true"></video>
+	pre.language-markup
+		code &lt;button g="centered large primary">Submit Form&lt;/button>
+	p Here, there are a few things to note:
+	ol
+		li The <strong>g</strong> attribute initiates the Galaxy API
+		li The button's position is <strong>centered</strong>, it's size is <strong>large</strong>, and its importance is <strong>primary</strong>.
+	
+	h3 Configuring settings
+	div(g="md-container")
+		p When tweaking web components, there's almost no reason you shouldn't use SCSS every time. 
+
+		ol
+			li If you haven't already, install Grunt's dependencies in Galaxy's root directory by running <strong>npm install</strong>.
+			li Start Grunt by running <strong>grunt</strong>
+
+		p In the editor of your choice, open up <strong>components/settings.scss</strong>. Once you modify and save your settings file, Grunt will compile the changes as CSS in <strong>galaxy.css</strong> and a minified version in <strong>galaxy.min.css</strong>
+
+.banner.next(g="between sm-padding" style="cursor: pointer")
+	section.loading(g="centered lg-container")
+		h3 How to Build Layouts <img src="/media/arrow-right.svg" style="height: 17px;">
+
+.doc#layouts
+.doc#scss

@@ -1,0 +1,21 @@
+//- .docs
+//- 	div(g="lg-container centered lg-padding-t")
+//- 		h1(g="centered") Documentation
+//- 		p Get started with Galaxy.
+		
+//- 		section(g="around md-container")
+//- 			button(g="primary") Beginner
+//- 			button(g="warning") Intermediate
+//- 			button(g="danger") Advanced
+header
+	a(href="/")
+		img(src="/media/logo-dark.png" alt="Galaxy" width="75")
+	ul
+		li
+			a(href="/docs/" class=current.source=='/docs/index'?'active':'') Getting Started
+		li
+			a(href="/components" class=current.source == 'components' ? 'active' : '') Components
+		li
+			a(href="/blog" target="_blank" class=current.source == 'components' ? 'active' : '') Design Blog
+		li
+			a(href="https://github.com/AndyF/galaxy" target="_blank") Github Repo

@@ -1,0 +1,29 @@
+doctype
+html
+	head
+		title Galaxy Documentation
+		meta(name="description" content="Learn how easy it is to build components with Galaxy!")
+		link(rel="icon" href="/img/favicon.png")
+		link(rel="stylesheet" href="/css/galaxy.css")
+		link(rel="stylesheet" href="/css/docs.css")
+		link(rel="stylesheet" href="/plugins/highlight/styles/tomorrow.css")
+
+body(ondragstart="return false")
+
+	header
+		a(href="/")
+			img(src="/media/logo-dark.png" alt="Galaxy" width="75")
+		ul
+			li
+				a.active(href="/docs/") Getting Started
+			li
+				a(href="/components" class=current.source == 'components' ? 'active' : '') Components
+			li
+				a(href="/blog" target="_blank") Design Blog
+			li
+				a(href="https://github.com/AndyF/galaxy" target="_blank") Github Repo</a>
+	
+	!= yield
+	script(src="/js/jquery.js")
+	script(src="/js/docs.js")
+	script(src="/js/prism.js")

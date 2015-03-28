@@ -1,0 +1,396 @@
+section(g="xlg-container")
+	aside(g="1 xlg-margin-lr md-margin-t")
+		ul(style="list-style-type: none;")
+			li <b>Base</b>
+			li <a>Typography</a>
+
+			li <b>Layout</b>
+			li <a>Grid</a>
+			li <a>Tables</a>
+
+			li <b>Components</b>
+			li <a>Navbar</a>
+			li <a>Buttons</a>
+			li <a>Forms</a>
+			li <a>Tooltips</a>
+
+	.results(g="8 md-12")
+		
+		#components
+			#search
+				input(type="text" placeholder="Type to search" autocomplete="off" maxlength="20" required autofocus)
+			
+			#grid.demo
+				h2 Galaxy Grid
+				p To create a 12 column row, simply initiate a <strong>section</strong>. Then, add a column number from <strong>1</strong> to <strong>12</strong> on the element's <strong>g</strong> attribute to specify the width of the column.
+				.example
+					section
+						div(g="3") 3
+						div(g="9") 9
+					pre.language-markup
+						code &lt;section>
+						code     &lt;div g="3">3&lt;div>
+						code     &lt;div g="9">9&lt;div>
+						code &lt;/section>
+
+				h3 Automatic rows
+				p Sometimes you'll have a lot of rows, and nesting them in multiple <strong>section</strong>s can be verbose. This is why Galaxy columns that add up to <strong>12</strong> will automatically start at the next row. The example below demonstrates columns overflowing two rows:
+
+				.example
+					section
+						div(g="3") 3
+						div(g="9") 9
+						<!-- The above adds up to 12, so the following starts in a new row -->
+						div(g="6") First Half
+						div(g="6") Second Half
+						<!-- Anything after this will be in another new row -->
+
+					pre.language-markup
+						code &lt;section>
+						code     &lt;div g="3">3&lt;div>
+						code     &lt;div g="9">9&lt;div>
+						code     &lt;div g="6">First Half&lt;div>
+						code     &lt;div g="6">Second Half&lt;div>
+						code &lt;/section>
+
+				h3 Nested Columns
+				p Each row contains 12 columns by default, but you can make a more complex layout by nesting <strong>section</strong> within other <strong>section</strong>s.
+				
+				.example
+					section
+						div(g="3")
+							div(g="6") 6
+							div(g="6") 6
+						div(g="9") 9
+					pre.language-markup
+						code &lt;section>
+						code     &lt;div g="3">3&lt;div>
+						code     &lt;div g="9">9&lt;div>
+						code &lt;/section>
+
+				h3 Distributing spacing
+				
+				p Instead of defining equal columns, a cleaner approach can be to use Galaxy's <strong>between</strong> and <strong>around</strong> attributes on a parent <strong>section</strong>.
+				
+				.example
+					h4 Spacing between and around elements
+					section(g="around")
+						div around
+						div around
+						div around
+						div around
+					h4 Spacing between elements
+					pre.language-markup
+						code &lt;section g="around">
+						code     &lt;div>around&lt;div>
+						code     &lt;div>around&lt;div>
+						code     &lt;div>around&lt;div>
+						code     &lt;div>around&lt;div>
+						code &lt;/section>
+					section(g="between")
+						div between
+						div between
+						div between
+						div between
+					pre.language-markup
+						code &lt;section g="between">
+						code     &lt;div>between&lt;div>
+						code     &lt;div>between&lt;div>
+						code     &lt;div>between&lt;div>
+						code     &lt;div>between&lt;div>
+						code &lt;/section>
+				h3 Offsets
+
+				p Offsets are used to apply a distinct margins that push everything else down. Like all columns, anything that overflows <strong>12</strong> will start in a new row.
+
+				.example.offsets(st-group="mult-offset" st-role="target")
+					button.demo(g="primary" st-group="mult-offset" st-role="trigger" st-state="offset") Demo offsets
+
+					section
+						div(g="9 offset-3") 9 offset-3
+
+					section
+						div(g="2 offset-10") 2 offset-10
+
+					section
+						div(g="6 offset-6") 6 offset-6
+					
+					pre.language-markup
+						code &lt;section>
+						code     &lt;div g="9 offset-3">size 9 with offset 3&lt;div>
+						code &lt;/section>
+
+					h3 Position and Alignment
+
+					p You can either apply positions to containers or directly on elements themselves. Galaxy components inherit the alignment of the container by default.
+
+					.example
+						section(g="left")
+							div(g="2") left
+
+						section(g="centered")
+							div(g="2") centered
+
+						section(g="right")
+							div(g="2") right
+						pre.language-markup
+							code &lt;button g="left">Left Button&lt;button>
+							code &lt;button g="centered">Centered Button&lt;button>
+							code &lt;button g="right">Right Button&lt;button>
+					
+
+					h3 Responsiveness
+					
+					p The example below holds four, sized <strong>3</strong> columns that will span <strong>12</strong> columns on screens with a width of the <strong>md</strong> breakpoint.
+					.example
+						section
+							div(g="3 md-12") 3 md-12
+							div(g="3 md-12") 3 md-12
+							div(g="3 md-12") 3 md-12
+							div(g="3 md-12") 3 md-12
+						pre.language-markup
+							code &lt;section>
+							code     &lt;div g="md-12">12 on md screens&lt;div>
+							code     &lt;div g="md-12">12 on md screens&lt;div>
+							code     &lt;div g="md-12">12 on md screens&lt;div>
+							code     &lt;div g="md-12">12 on md screens&lt;div>
+							code &lt;/section>
+
+					p Galaxy Grid will flow columns in a new row automatically, but it's good practice to specify when exactly things will flow. To specify, just add <strong>breakpoint-width</strong> to the <strong>g</strong> tag.
+					
+					h3 Default Breakpoints
+					p The table below features the most common screen breakpoints you can prefix columns by. You can always customize these values in <strong>settings.scss</strong>.
+					table
+						thead
+						th xsm
+						th sm
+						th md
+						th lg
+						th xlg
+						tbody
+						tr
+							td 259px
+							td 448px
+							td 767px
+							td 970px
+							td 1440px
+
+					h3 Containers
+					p It is recommended that you use containers instead of defining columns on a parent element. Not only is it more semantic, but it also adds consistency to your design.
+					.example
+						div(g="column")
+							input(type="text" g="xsm-container" placeholder="Width of xsm-container")
+							input(type="text" g="sm-container" placeholder="Width of a sm-container")
+							input(type="text" g="md-container" placeholder="Width of a md-container")
+							input(type="text" g="lg-container" placeholder="Width of lg-container")
+							input(type="text" g="xlg-container" placeholder="Width of xlg-container" style="text-indent: 6.5%;")
+						pre.language-markup
+							code &lt;section>
+							code     &lt;div g="xsm-container">xsm-container&lt;div>
+							code     &lt;div g="sm-container">sm-container&lt;div>
+							code     &lt;div g="md-container">md-container&lt;div>
+							code     &lt;div g="lg-container">lg-container&lt;div>
+							code     &lt;div g="xlg-container">xlg-container&lt;div>
+							code &lt;/section>
+
+
+			#navbarnavigationheaderfootersidebar.demo
+
+				h2 Navbar
+				.example
+					header
+						a
+							img(src="//placehold.it/150x50")
+						nav
+							ul
+								li
+									a List item 1
+								li
+									a List item 2
+								li
+									a List item 3
+
+					pre.language-markup
+						code &lt;header>
+						code     &lt;a>&lt;img src="//placehold.it/150x50">&lt;/a>
+						code     &lt;nav>
+						code         &lt;ul>
+						code            &lt;li>List Item 1&lt;/li>
+						code            &lt;li>List Item 2&lt;/li>
+						code            &lt;li>List Item 3&lt;/li>
+						code         &lt;/ul>
+						code     &lt;/nav>
+						code &lt;/header>
+			#buttons.demo
+				h2 Buttons
+			
+				p Buttons can be initiated with the <strong>button</strong> tag or <strong>submit input</strong>.
+
+				.example
+					section(g="around md-margin-t")
+						button Default button
+						button(g="primary") Primary button
+						button(g="success") Success button
+						button(g="warning") Warning button
+						button(g="danger") Danger button
+
+				section(g="around md-margin-t")
+					button(g="disabled") Disabled default
+					button(g="disabled primary") Disabled primary
+
+				pre.language-markup
+					code &lt;button>Button&lt;/button>
+					code &lt;!-- Button States -->
+					code &lt;button g="success">Success Button&lt;/button>
+
+			#forms.demo
+
+				h2 Forms and Text Inputs
+				p Create a <strong>form</strong> like you normally would. Styles are applied automatically.
+				.example
+					h3 Inline Inputs
+					form(action="")
+						input(type="email" placeholder="Your email" required)
+						input(type="password" placeholder="Your password" required)
+						input(type="submit" g="primary" value="Sign in")
+
+					pre.language-markup
+						code &lt;form action="#">
+						code     &lt;input type="email" placeholder="Your email" required>
+						code     &lt;input type="password" placeholder="Your password" required>
+						code     &lt;input type="submit" value="Sign in" required>
+						code &lt;/form>
+
+					h3 Grouped Inputs
+					form(action="" g="xsm-container md-margin-t column")
+						input(type="email" placeholder="Your email" required)
+						input(type="password" placeholder="Your password" required)
+						input(type="submit" g="primary" value="Sign in")
+
+					pre.language-markup
+						code &lt;form action="#" g="column">
+						code     &lt;input type="email" placeholder="Your email" required>
+						code     &lt;input type="password" placeholder="Your password" required>
+						code     &lt;input type="submit" value="Sign in" required>
+						code &lt;/form>
+
+					h3 Textareas
+					textarea(placeholder="This is a textarea" rows="10")
+					pre.language-markup
+						code &lt;textarea rows="10" placeholder="This is a textarea">
+
+					
+
+			#tooltips.demo
+				h2 Tooltips
+				p Creating tooltips is as simple as adding <strong>data-tooltip</strong> containing the content of the tooltip to any component.
+				<a data-tooltip="This is a simple tooltip.">Hover over me</a>
+				
+				pre.language-markup
+						code &lt;a data-tooltip="This is a Galaxy tooltip.">
+				
+
+			#labels.demo
+				h2 Labels
+				.example
+					section(g="around")
+						label Default label
+						label(g="primary") Primary label
+						label(g="success") Success label
+						label(g="warning") Warning label
+						label(g="danger") Danger label
+
+			#tables.demo
+				h2 Tables
+				.example
+					table
+						thead
+							th xsm
+							th sm
+							th md
+							th lg
+							th xlg
+						tbody
+							tr
+								td 259px
+								td 448px
+								td 767px
+								td 970px
+								td 1440px
+						table
+							thead
+								th xsm
+								th sm
+								th md
+								th lg
+								th xlg
+							tbody
+								tr
+									td 259px
+									td 448px
+									td 767px
+									td 970px
+									td 1440px
+						pre.language-markup
+							code &lt;table>
+							code     &lt;thead>
+							code &lt;-- This is the header -->
+							code         &lt;td>Title 1&lt;td>
+							code         &lt;td>Title 2&lt;td>
+							code         &lt;td>Title 3&lt;td>
+							code     &lt;tbody>
+							code         &lt;tr>
+							code             &lt;td>Row 1>
+							code             &lt;td>Row 1>
+							code             &lt;td>Row 1>
+							code         &lt;/tr>
+							code &lt;-- This is a new row -->
+							code         &lt;tr>
+							code             &lt;td>Row 1>
+							code             &lt;td>Row 1>
+							code             &lt;td>Row 1>
+							code         &lt;/tr>
+							code     &lt;/tbody>
+							code &lt;/table>
+
+			#typography.demo(g="around")
+				h2 Typography
+				section
+					div(g="4 column")
+						h1 Heading 1
+						h2 Heading 2
+						h3 Heading 3
+						h4 Heading 4
+						h5 Heading 5
+						h6 Heading 6
+					div(g="6 column md-margin-t")
+						p This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia explicabo et facere, molestiae est aperiam deleniti, animi totam ipsum necessitatibus soluta consequuntur voluptas assumenda, id omnis. Accusamus ratione, iure quo.
+
+						table(g="hover")
+							thead
+								th Element
+								th Markup
+							tbody
+								tr
+									td
+										a link
+									td
+										code &lt;a&gt;
+								tr
+									td
+										code code
+									td
+										code &lt;code&gt;
+								tr
+									td
+										strong strong
+									td
+										code &lt;strong&gt;
+								tr
+									td
+										em italics
+									td
+										code &lt;em&gt;
+				
+
+				.display-all

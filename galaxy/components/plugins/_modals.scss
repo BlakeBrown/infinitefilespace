@@ -1,0 +1,75 @@
+.modal, .bg {
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	left: 0;
+	top: 0;
+}
+
+.modal {
+	visibility: hidden;
+	opacity: 0;
+	transition: .2s all ease-in;
+	&.active {
+		margin-top: 10vh;
+		visibility: visible;
+		filter: none;
+		opacity: 1;
+		z-index: 100;
+	}
+    & footer {
+        border-top: $dark-shadow 1px solid;
+        // position: absolute;
+        // bottom: 0;
+        width: 100%;
+        padding: 1em 0;
+		background: #FFF;
+		flex-direction: row;
+	}
+
+	& .content {
+		padding: 0 $lg-padding;
+	}
+	& .header {
+		text-align: center;
+		background: #fff;
+		& > * {
+			padding: $sm-padding;
+		}
+		&[g~="fixed"] {
+			width: 50%;
+			position: fixed;
+			background: #fff;
+		}
+	}
+}
+
+.bg {
+	background: rgba(0,0,0,.5);
+	opacity: 0;
+	transition: .2s all ease-in;
+	.active & {
+		opacity: 1;
+	}
+}
+
+.modal_box {
+    width: 50%;
+    height: auto;
+    border: $sm-border-radius solid $light-shadow;
+    border-radius: 3px;
+    background: #fff;
+    position: absolute;
+    top: -100vh;
+    left: 0;
+    right: 0;
+    margin: auto;
+    transition: .5s all ease-in;
+    overflow: scroll;
+    text-align: left;
+    display: none;
+    .active & {
+        top: 0;
+        display: block;
+    }
+}

@@ -1,0 +1,27 @@
+doctype
+html
+	head
+		title Components - Galaxy UI
+		meta(name="description" content="The front-end framework based on conversational language.")
+		link(rel="icon" href="/img/favicon.png")
+		link(rel="stylesheet" href="/css/galaxy.css")
+		link(rel="stylesheet" href="/css/docs.css")
+		link(rel="stylesheet" href="/plugins/highlight/styles/tomorrow.css")
+
+	body(ondragstart="return false")
+
+		header
+			a(href="/")
+				img(src="/media/logo-dark.png" alt="Galaxy" width="75")
+			ul
+				li
+					a(href="/docs/" class=current.source=='/docs/'?'active':'') Getting Started
+				li
+					a.active(href="/components") Components
+				li
+					a(href="/blog" target="_blank") Design Blog
+				li
+					a(href="https://github.com/Magmoz/galaxy" target="_blank") Github Repo</a>
+	
+		!= yield
+		!=partial("../_partials/footer")

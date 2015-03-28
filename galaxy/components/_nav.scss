@@ -1,0 +1,109 @@
+/*
+	-------
+	GALAXY/HEADER
+	_______
+*/
+
+header {
+	top: 0;
+	margin: 0;
+	position: relative;
+	color: contrast-bg($nav-color);
+	background-color: $nav-color;
+	width: 100%;
+	z-index: 1;
+	display: inline-flex;
+	transition: .5s;
+	justify-content: center;
+	align-self: center;
+	vertical-align: middle;
+	padding-top: .5em;
+	padding-bottom: .5em;
+	font-size: .95em;
+	img {
+		fill: darken(contrast-color($nav-color), 50); // Optimize Svg color to complement $nav-color
+		vertical-align: middle;
+	}
+	ul {
+		display: inline-flex;
+		transition: .5s cubic-bezier(0, 1, 0.5, 1) all;
+		align-items: center;
+		padding-left: 0;
+		list-style-type: none;
+		li {
+			justify-content: center;
+			margin-left: 1em;
+
+			a {
+				border-radius: $md-border-radius;
+				display: inline;
+				text-decoration: none;
+				padding: .75em 1em;
+				color: rgba(contrast-bg($nav-color), .9);
+				&:hover:not([g~="active"]) {
+					color: lighten(contrast-bg($nav-color), 20);
+					background: rgba(0, 0, 0, 0.07);
+				}
+				&[g~="active"], [g~="active"]:hover, [g~="active"]:active {
+					color: lighten(contrast-bg($nav-color), 20);
+					opacity: 1;
+				}
+			}
+		}
+	}
+	&[g~="fixed"] {
+		position: fixed;
+	}
+}
+
+footer {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	text-align: center;
+	border-top: lighten(contrast-color($footer-background-color), 90) 1px solid;
+	background: $footer-background-color;
+	line-height: 0;
+	bottom: 0;
+	border-top: #eee 1px solid;
+	justify-content: space-around;
+	& ul {
+		list-style-type: none;
+		padding: 0;
+		padding-top: 0;
+		display: flex;
+	}
+}
+ul[g~="inline"] {
+	a {
+		padding-left: 1em;
+		padding-right: 1em;
+	}
+}
+
+// Sidebars
+
+aside {
+	line-height: 2em;
+	li.active {
+		background: $light-shadow;
+	}
+}
+
+// Tabs
+
+tab {
+	display: flex;
+	button:first-child {
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+	button:last-child {
+		border-top-left-radius: 0;
+		border-bottom-left-radius: 0;
+	}
+	button:not(:first-child):not(:last-child) {
+		border-radius: 0;
+	}
+
+}

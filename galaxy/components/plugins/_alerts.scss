@@ -1,0 +1,26 @@
+/*
+	-------
+	GALAXY/ALERTS
+	_______
+*/
+
+alert {
+    display: block;
+    padding: 1rem;
+    border-radius: $md-border-radius;
+    font-size: .9rem;
+    margin: 1em 0;
+    @include alert-color(lighten($default-color, 50));
+    &[g~="primary"] {
+        @include alert-color(lighten($primary-color, 50));
+    }
+    &[g~="success"] {
+        @include alert-color(lighten($success-color, 50));
+    }
+    &[g~="warning"] {
+        @include alert-color(lighten($warning-color, 35));
+    }
+    &[g~="danger"] {
+        @include alert-color(lighten($danger-color, 50));
+    }
+}

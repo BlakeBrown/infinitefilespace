@@ -1,0 +1,81 @@
+link(rel="stylesheet" href="/css/home.css")
+
+//- canvas
+.opening(g="center column")
+	
+	section(g="centered md-padding")
+		div(g="md-container")
+			h1(g="12 centered bold" style="font-size: 3em;") Galaxy
+			h3 A friendly, modern, and conversational framework for building front-end layouts with ease.
+
+			a(href="/docs")
+				button(g="primary") Read Documentation
+
+	ul.github-buttons(g="centered")
+		li <a class="github-button" href="https://github.com/Magmoz/galaxy" data-icon="octicon-star" data-style="mega" data-count-href="/Magmoz/galaxy/stargazers" data-count-api="/repos/Magmoz/galaxy#stargazers_count">Star</a>
+		li <a class="github-button" href="https://github.com/Magmoz/galaxy" data-icon="octicon-git-branch" data-style="mega" data-count-href="/Magmoz/galaxy/network" data-count-api="/repos/Magmoz/galaxy#forks_count">Fork</a>
+			
+
+//- div(g="centered md-container md-padding")
+//- 	h2 Easy, modern, and straightforward layouts
+//- 	p Galaxy packages Flexbox, custom attributes, and out-of-the-box performance optimization so you can focus fully on design rather than the complexities of CSS.
+//- 	a(href="/docs/") → Get Started Guide
+//- hr
+//- section(g="centered around lg-padding")
+//- 	div(g="4 lg-12 column")
+//- 		img(g="centered" width="200" src="/media/performant.png")
+//- 		h3 Lightning fast
+//- 		p(g="md-margin-lr") Most of Galaxy is handled in CSS, making motion UI feeling incredibly smooth and native. Plus, Galaxy.js is only 3kb minified.
+//- 	div(g="4 lg-12 column")
+//- 		img(g="centered" width="200" src="/media/design-specs.png")
+//- 		h3 Built on design specs
+//- 		p(g="md-margin-lr") The behavior of each component follows consistent, research driven design guidelines right out-the-box.
+//- 	div(g="4 lg-12 column")
+//- 		img(g="centered" width="200" src="/media/native.png")
+//- 		h3 Semantic markup
+//- 		p(g="md-margin-lr") By using the <strong>g</strong> attribute, there are literally no naming constraints. This means no prefixing, overriding styles, or messy markup.
+
+.banner(g="centered md-padding")
+	h2 Easy, modern, and straightforward layouts
+	div(g="centered md-container")
+		p Galaxy packages Flexbox, custom attributes, and out-of-the-box performance optimization so you can focus fully on design rather than the complexities of CSS.
+	a(href="/docs/") → Get Started Guide
+hr
+
+
+div(g="center md-container")
+	section(g="lg-margin-t xlg-margin-b")
+		div(g="6 column")
+			h3 Lightning fast
+			p Most of Galaxy is handled in CSS, making motion UI feeling incredibly smooth and native. Plus, Galaxy.js is only 3kb minified.
+			ul
+				li Preloads pages out the box
+				li 10kb total
+				li Minimal markup
+		img(g="centered 6" src="/media/performant.png" style="height: 200px;width: auto;")
+	section(g="lg-margin-t xlg-margin-b")
+		img(g="centered 6" src="/media/design-specs.png" style="height: 200px;width: auto;")
+		div(g="6 column")
+			h3 Built on design specs
+			p The behavior of each component follows consistent, research driven design guidelines right out-the-box.
+			ul
+				
+				li Designed with constraints
+				li Follows Google Design Specs
+				li Beautiful and modern-looking components
+		
+	section(g="lg-margin-t xlg-margin-b")
+		div(g="6 column")
+			h3 Semantic markup
+			p By using the <strong>g</strong> attribute, there are literally no naming constraints. This means no prefixing, overriding styles, or messy markup.
+			ul
+				li Comes with Sass version
+				li Modular, semantic, but unopinionated
+		img(g="centered 6" src="/media/native.png" style="height: 200px;width: auto;")
+	
+
+
+.banner(g="centered lg-padding md-margin-t")
+	h3 Start your next project with Galaxy
+	a(href="https://github.com/Magmoz/galaxy/archive/master.zip")
+		button(g="center primary sm-margin-t sm-margin-b") <img src="/open-iconic/svg/data-transfer-download.svg" style="height: 13px; fill: #fff"> Download Galaxy
