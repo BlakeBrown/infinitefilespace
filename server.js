@@ -42,14 +42,8 @@ function getFiles(callback) {
 		client.readdir('/', function (error, entries, folder_data, file_data) {
 			if (error) return showError(error);
 
-			// console.log('======= START OF ENTRIES =========');
-			// console.log(file_data);
-			// var files = file_data;
-			// for (var i = 0; i < files.length; i++) {
-			// 	console.log(client.thum bnailUrl(files[i].path));
-			// }
 			callback(file_data);
-			// console.log('======= END OF ENTRIES =========');
+
 		});
 
 		function showError (error) {
@@ -58,28 +52,55 @@ function getFiles(callback) {
 	});
 }
 
+function reply(res, clientFiles) {
+	console.log(clientFiles);
+	res.json(clientFiles);
+}
+
+function copyDropboxData(curServerFile, curFile, callback) {
+
+	var file_url;
+
+	console.log(curServerFile.path);
+
+	client.makeUrl(curServerFile.path, {downloadHack: true}, function (error, file_data) {
+		file_url = file_data.url;
+		curFile.url = file_url;
+		console.log("HELLOOOOOO");
+		if(curServerFile.hasThumbnail) {
+			curFile.hasThumbnail = true;
+		}
+		callback();
+	});	
+
+}
+
 app.get('/files', function (req, res) {
 
 	// Client files is the JSON object we send to the client, files is the JSON object from dropbox api
 	var clientFiles = [];
 
 	getFiles(function (files) {
-
+		var outstandingUrls = files.length;
 		for(var i = 0; i < files.length; i++) {
 			clientFiles.push({
 				name: files[i].name,
-				hasThumbnail: false,
-				thumbnailUrl: null
+				url: null,
+				hasThumbnail: false
 			});
 
-			if(files[i].hasThumbnail) {
-				clientFiles[i].hasThumbnail = true;
-				clientFiles[i].thumbnailUrl = client.thumbnailUrl(files[i].path);
-			}
-		}
-		// Send the JSON object to the client
-		res.json(clientFiles);
 
+			var curFile = clientFiles[i];
+			var curServerFile = files[i];
+
+			copyDropboxData(curServerFile, curFile, function() {
+				outstandingUrls--;
+
+				if(outstandingUrls === 0) {
+					reply(res, clientFiles);
+				}				
+			});
+		}
 	});
 });
 

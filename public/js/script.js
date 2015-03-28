@@ -7,7 +7,7 @@ $(document).ready(function () {
 			return;
 		}
 		data.forEach(addFile);
-		// initFiles();
+		initFiles();
 	});
 
 	function addFile(file) {
@@ -15,10 +15,10 @@ $(document).ready(function () {
 		var filetype = getType();
 		if(!file.hasThumbnail) {
 			$icon = '<i class="fa fa-fw fa-file-' + getIcon(filetype) + '"></i>';
-			$card = $('<div g="column"><div class="grid__item ' + filetype + '">' + $icon + '</div><label>' + file.name + '</label></div>');
+			$card = $('<div g="column"><div class="grid__item ' + filetype + '">' + $icon + '</div><a href="' + file.url + '" download><label>' + file.name + '</label></a></div>');
 		} else {
 			$icon = '';
-			$card = $('<div g="column"><div class="grid__item grid_photo ' + filetype + '" style="background-image: url(' + file.thumbnailUrl + ')">' + $icon + '</div><label>' + file.name + '</label></div>');
+			$card = $('<div g="column"><div class="grid__item grid_photo ' + filetype + '" style="background-image: url(' + file.url + ')">' + $icon + '</div><a href="' + file.url + '" download><label>' + file.name + '</label></a></div>');
 		}
 		
 		$('#grid').append($card);
