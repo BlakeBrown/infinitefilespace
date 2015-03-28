@@ -1,4 +1,11 @@
 $(document).ready(function () {
+<<<<<<< HEAD:public/js/script.js
+=======
+	var $grid = document.getElementById('grid');
+
+    // NOTE: our getFiles call authenticates the user and that's triggered when the user goes to files.
+    // This means that we need to put all authentication-required code here.
+>>>>>>> ee7d5945b8a573353b5fc551127868f4efdf988d:NodePlusFrontend/public/js/script.js
 	$.getJSON('files', function (data) {
 		if (!data || data.length === 0) {
 			console.log('error retrieving files');
@@ -6,9 +13,26 @@ $(document).ready(function () {
 		}
 		data.forEach(addFile);
 		initFiles();
+<<<<<<< HEAD:public/js/script.js
+=======
+
+        /*var postrequest = $.post('upload', {
+         text: 'sdf'
+         });
+
+         postrequest.done(function (data) {
+         console.log(data);
+         });*/
+
+        //$.post("/upload",
+        //    {
+        //        text: "hey REST!"
+        //    }, dataUpdateSuccessHandler);
+>>>>>>> ee7d5945b8a573353b5fc551127868f4efdf988d:NodePlusFrontend/public/js/script.js
 	});
 });
 
+<<<<<<< HEAD:public/js/script.js
 function addFile(file) {
 	var filetype = getType();
 	if(!file.hasThumbnail) {
@@ -20,6 +44,32 @@ function addFile(file) {
 	}
 	
 	$('#grid').append($card);
+=======
+    //function dataUpdateCompleteHandler(data) {
+    //    console.log("complete: " + data);
+    //}
+    //
+    //function dataUpdateSuccessHandler() {
+    //    console.log("success");
+    //}
+    //
+    //function dataUpdateErrorHandler(error) {
+    //    console.log("error ".concat(error));
+    //}
+
+	function addFile(file) {
+
+		var filetype = getType();
+		if(!file.hasThumbnail) {
+			$icon = '<i class="fa fa-fw fa-file-' + getIcon(filetype) + '"></i>';
+			$card = $('<div g="column"><div class="grid__item ' + filetype + '">' + $icon + '</div><label>' + file.name + '</label></div>');
+		} else {
+			$icon = '';
+			$card = $('<div g="column"><div class="grid__item grid_photo ' + filetype + '" style="background-image: url(' + file.thumbnailUrl + ')">' + $icon + '</div><label>' + file.name + '</label></div>');
+		}
+		
+		$('#grid').append($card);
+>>>>>>> ee7d5945b8a573353b5fc551127868f4efdf988d:NodePlusFrontend/public/js/script.js
 
 	function getType() {
 		var d = file.name.lastIndexOf('.');
