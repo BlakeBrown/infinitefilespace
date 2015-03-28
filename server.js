@@ -39,14 +39,17 @@ function getFiles(callback) {
 	        });
 	    });
 
-		client.readdir('/', function (error, entries) {
+		client.readdir('/', function (error, entries, folder_data, file_data) {
 			if (error) return showError(error);
 
-			console.log('entries:');
-			callback(entries);
-			entries.forEach(function (entry) {
-				console.log(entry);
-			});
+			// console.log('======= START OF ENTRIES =========');
+			// console.log(file_data);
+			// var files = file_data;
+			// for (var i = 0; i < files.length; i++) {
+			// 	console.log(client.thum bnailUrl(files[i].path));
+			// }
+			callback(file_data);
+			// console.log('======= END OF ENTRIES =========');
 		});
 
 		function showError (error) {
@@ -56,8 +59,27 @@ function getFiles(callback) {
 }
 
 app.get('/files', function (req, res) {
+
+	// Client files is the JSON object we send to the client, files is the JSON object from dropbox api
+	var clientFiles = [];
+
 	getFiles(function (files) {
-		res.json(files);
+
+		for(var i = 0; i < files.length; i++) {
+			clientFiles.push({
+				name: files[i].name,
+				hasThumbnail: false,
+				thumbnailUrl: null
+			});
+
+			if(files[i].hasThumbnail) {
+				clientFiles[i].hasThumbnail = true;
+				clientFiles[i].thumbnailUrl = client.thumbnailUrl(files[i].path);
+			}
+		}
+		// Send the JSON object to the client
+		res.json(clientFiles);
+
 	});
 });
 
