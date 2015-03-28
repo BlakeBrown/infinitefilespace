@@ -13,10 +13,11 @@ $(document).ready(function () {
 	function addFile(file) {
 		var $file = document.createElement('div'),
 			$icon = document.createElement('i'),
-			$filename = document.createElement('p');
-		$file.className = 'grid__item';
-		$icon.className = 'fa fa-fw fa-file-image-o';
-		$filename.innerHTML = getType();
+			$filename = document.createElement('p'),
+			filetype = getType();
+
+		$file.className = 'grid__item ' + filetype;
+		$icon.className = 'fa fa-fw fa-file-'+getIcon(filetype);
 
 		$file.appendChild($icon);
 		$file.appendChild($filename);
@@ -26,9 +27,18 @@ $(document).ready(function () {
 			var d = file.lastIndexOf('.');
 			if (d < 0) return 'unknown';
 			var ext = file.substring(d+1);
+			//make sure to return fontawesome classnames
 			if (['png','jpg','jpeg','gif'].indexOf(ext) >= 0) return 'image';
+			if (['mp3','flac','ogg','wav'].indexOf(ext) >= 0) return 'audio';
+			if (['pdf'].indexOf(ext) >= 0) return 'pdf';
 			if (['txt','doc','docx'].indexOf(ext) >= 0) return 'text';
 			return ext;
+		}
+
+		function getIcon(type) {
+			//first line is for fontawesome classnames
+			if (['image', 'audio', 'text', 'pdf'].indexOf(type) >= 0) return type + '-o';
+			return 'o';
 		}
 	}
 
