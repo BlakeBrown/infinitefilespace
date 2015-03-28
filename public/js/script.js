@@ -11,18 +11,12 @@ $(document).ready(function () {
 	});
 
 	function addFile(file) {
+		var filetype = getType(),
+			$file = $('<div class="grid__item '+filetype+'"></div>'),
+			$icon = $('<i class="fa fa-fw fa-file-'+getIcon(filetype)+'"></i>');
 
-		$grid.append()
-		var $file = document.createElement('div'),
-			$icon = document.createElement('i'),
-			$filename = document.createElement('p'),
-			filetype = getType();
-
-		$file.className = 'grid__item ' + filetype;
-		$icon.className = 'fa fa-fw fa-file-'+getIcon(filetype);
-
-		$file.append($icon, $filename);
-		$grid.append($file);
+		$file.append($icon);
+		$('#grid').append($file);
 
 		function getType() {
 			var d = file.lastIndexOf('.');

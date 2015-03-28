@@ -14,37 +14,50 @@ var client = new Dropbox.Client({
 
 client.authDriver(new Dropbox.AuthDriver.NodeServer(8191));
 
-client.authenticate(function (error, client) {
-	if (error) return showError(error);
-
-	console.log('successful authentication:');
-	client.getAccountInfo(function (error, data) {
-		if (error) return showError(error);
-		console.log(data.email);
-	});
-
-    client.writeFile("hello_world.txt", "Hello, world!\n", function (error, stat) {
-        if (error) return showError(error);
-        console.log('File created and uploaded');
-    });
-
-    fs.readFile("test.png", function (error, data) {
-        // No encoding passed, readFile produces a Buffer instance
-        if (error) return showError(error);
-        console.log('test.png has been read');
-        client.writeFile("test.png", data, function (error, stat) {
-            if (error) return showError(error);
-            console.log('test.png has been written');
-        });
-    });
-
-	client.readdir('/', function (error, entries) {
+function getFiles(callback) {
+	client.authenticate(function (error, client) {
 		if (error) return showError(error);
 
-		console.log('entries:');
-		entries.forEach(function (entry) {
-			console.log(entry);
+		console.log('successful authentication:');
+		client.getAccountInfo(function (error, data) {
+			if (error) return showError(error);
+			console.log(data.email);
 		});
+
+	    client.writeFile("hello_world.txt", "Hello, world!\n", function (error, stat) {
+	        if (error) return showError(error);
+	        console.log('File created and uploaded');
+	    });
+
+	    fs.readFile("files/test.png", function (error, data) {
+	        // No encoding passed, readFile produces a Buffer instance
+	        if (error) return showError(error);
+	        console.log('test.png has been read');
+	        client.writeFile("test.png", data, function (error, stat) {
+	            if (error) return showError(error);
+	            console.log('test.png has been written');
+	        });
+	    });
+
+		client.readdir('/', function (error, entries) {
+			if (error) return showError(error);
+
+			console.log('entries:');
+			callback(entries);
+			entries.forEach(function (entry) {
+				console.log(entry);
+			});
+		});
+
+		function showError (error) {
+		    console.log(error.status);
+		};
+	});
+}
+
+app.get('/files', function (req, res) {
+	getFiles(function (files) {
+		res.json(files);
 	});
 });
 
@@ -55,7 +68,3 @@ app.get('/', function (req, res) {
 http.listen(3000, function() {
 	console.log('listenining on *:3000');
 });
-
-function showError (error) {
-    console.log(error.status);
-};
