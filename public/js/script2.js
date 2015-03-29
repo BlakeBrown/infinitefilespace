@@ -5,6 +5,7 @@ $(document).ready(function () {
     	getFiles();
     } else {
 		client.authenticate({ interactive: false }, function (error, client) {
+			console.log(client);
 	        if (error) {
 	        	console.log('Error: ' + error);
 	        	return;
@@ -16,6 +17,7 @@ $(document).ready(function () {
 
 function getFiles() {
 	client.readdir('/', function (error, entries, folder_data, file_data) {
+		console.log(entries);
 		file_data.map(function (file) {
 			// client.makeUrl(file.path, {downloadHack: true}, function (error, file_data) {
 			// 	file.url = file_data.url;
