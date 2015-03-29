@@ -2,10 +2,12 @@ var express = require('express'),
 	path	= require("path"),
 	Dropbox = require('dropbox'),
 	fs 		= require('fs'),
-	app 	= express();
-	http 	= require('http').Server(app);
+	app 	= express(),
+	http 	= require('http').Server(app),
+	bodyParser = require('body-parser');
 
 app.use(express.static(path.join(__dirname, '/public')));
+app.use(bodyParser.urlencoded({extended: true}));
 
 // This is our infinity-HackWesternReal Dropbox app info.
 var client = new Dropbox.Client({
@@ -132,6 +134,13 @@ app.get('/files', function (req, res) {
 		}
 
 	});
+});
+
+app.post('/upload', function(request, response) {
+	client.writeFile(request.body.name, request.body.url, function() {
+		console.log("success");
+	});
+	
 });
 
 app.get('/', function (req, res) {

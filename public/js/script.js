@@ -35,7 +35,6 @@ function getFiles(path) {
 	});
 
 	function addFile(file) {
-		console.log(file);
 		var type = getType();
 		var icon = '<i class="fa fa-fw fa-file-' + getIcon(type) + '"></i>';
 		var card = '<div g="column"><div class="grid__item ' + type + '"></div><a href="' + file.url + '" download><label>' + icon + file.name + '</label></a><span style="font-size: 0.7em">' + file.timeSincePosted + '</span></div>';
@@ -131,3 +130,38 @@ function initGrid() {
 		} );
 	} );
 };
+
+//this function is called when the input loads a video
+function renderImage(file) {
+    var reader = new FileReader();
+    reader.onload = function(event) {
+        var url = event.target.result;
+		var card = '<div g="column"><div class="grid__item grid_photo ' + "jpeg" + '" style="background-image: url(' + url + ')">' + '</div><a href="' + url + '" download><label>' + file.name + '</label></a><span style="font-size: 0.7em">' + "Just posted" + '</span></div>';
+		$('#grid').append(card);
+		$.ajax({
+			method: 'post',
+			url: 'upload',
+			data: { 
+				url: "HACK WESTERN FOR LIFE! :)",
+				name: file.name
+			},
+			success: function(response) {
+				console.log(response);
+			},
+			error: function(response) {
+				console.log(response);
+			}
+		});
+    }
+
+	//when the file is read it triggers the onload event above.
+    reader.readAsDataURL(file);
+}
+
+$("#upload").on("click", function() {
+	$("#upload_file").click();
+});
+
+$("#upload_file").change(function() {
+	renderImage(this.files[0]);
+});
