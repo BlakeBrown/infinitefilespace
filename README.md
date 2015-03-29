@@ -7,19 +7,19 @@ Setup
 ---
 
 * `git clone git@github.com:AndyF/filespace.git`
-* `cd filespace/node`
+* `cd filespace`
 * `npm install`
 
 Grunt
 ---
 
-* get in `filespace/node/public/galaxy/`
+* get in `filespace/public/galaxy/`
 * `npm install`
 * `grunt`
 
 Running
 ---
 
-* get in `filespace/node`
+* get in `filespace`
 * `npm start`
 * visit `http://localhost:3000`
