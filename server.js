@@ -1,10 +1,11 @@
-var express = require('express');
-var path = require("path");
-var app = express();
+var express = require('express'),
+	path	= require("path"),
+	Dropbox = require('dropbox'),
+	fs 		= require('fs'),
+	app 	= express();
+	http 	= require('http').Server(app);
+
 app.use(express.static(path.join(__dirname, '/public')));
-var http = require('http').Server(app);
-var Dropbox = require('dropbox');
-var fs = require('fs');
 
 // This is our infinity-HackWesternReal Dropbox app info.
 var client = new Dropbox.Client({
@@ -31,11 +32,6 @@ function getFiles(callback) {
 
 		});
 
-        // readdir won't print test.txt because this isn't properly chained up with Promises but submitFile does work.
-        //submitFile("files/test.txt");
-
-	
-
 	});
 }
 
@@ -45,7 +41,6 @@ function replyFiles(res, clientFiles) {
 } 
 
 function copyDropboxData(curServerFile, curFile, callback) {
-
 	var file_url;
 
 	client.makeUrl(curServerFile.path, {downloadHack: true}, function (error, file_data) {
@@ -57,7 +52,22 @@ function copyDropboxData(curServerFile, curFile, callback) {
 		curFile.timeSincePosted = timeSince(Date.parse(curServerFile.modifiedAt));
 		callback();
 	});	
+}
 
+function submitFile(filepath) {
+    fs.readFile(filepath, function (error, data) {
+        if (error) return showError(error);
+        console.log(filepath.concat(' has been found in filesystem'));
+
+        // NOTE: Only works for one file
+        var parts = filepath.split("/");
+        var filename = parts[parts.length - 1];
+        console.log(filename.concat(' has been substringed from the filepath'));
+        client.writeFile(filename, data, function (error, stat) {
+            if (error) return showError(error);
+            console.log(filepath.concat(' has been written'));
+        });
+    });
 }
 
 function timeSince(date) {
@@ -88,49 +98,19 @@ function timeSince(date) {
     return Math.floor(seconds) + " seconds ago";
 }
 
+function showError (error) {
+    console.log(error.status);
+}
+
 app.get('/files', function (req, res) {
-
-	function showError (error) {
-	    console.log(error.status);
-	};
-
-	// filepath will look like "files/test.png" which is located in ~/filespace/files/test.png
-	function submitFile(filepath) {
-	    fs.readFile(filepath, function (error, data) {
-	        if (error) return showError(error);
-	        console.log(filepath.concat(' has been found in filesystem'));
-
-	        // NOTE: Only works for one file
-	        var parts = filepath.split("/");
-	        var filename = parts[parts.length - 1];
-	        console.log(filename.concat(' has been substringed from the filepath'));
-	        client.writeFile(filename, data, function (error, stat) {
-	            if (error) return showError(error);
-	            console.log(filepath.concat(' has been written'));
-	        });
-	    });
-	}
-
-	// request.body will be the filepath?
-	// TODO may be app.get
-	//app.post('/upload', function (req, res) {
-	//    console.log('user has entered upload page');
-	//    submitFile(req.body.text);
-	    //
-	    //console.log("req.body ".concat(req.body));
-	    //console.log("req ".concat(req));
-	    //this result will be logged in the onComplete of the post in script.js
-	    //res.send('hi');
-	//});
-
-	// Client files is the JSON object we send to the client, files is the JSON object from dropbox api
 	var clientFiles = [];
 
 	getFiles(function (files, client_data) {
 	
 		var outstandingUrls = files.length;
-		
-		for(var i = 0; i < files.length; i++) {
+
+		for (var i = 0, len = files.length; i < len; i++) {
+
 			clientFiles.push({
 				name: files[i].name,
 				url: null,
@@ -141,27 +121,22 @@ app.get('/files', function (req, res) {
 			var curFile = clientFiles[i];
 			var curServerFile = files[i];
 
-			copyDropboxData(curServerFile, curFile, function() {
+			copyDropboxData(curServerFile, curFile, function () {
 				outstandingUrls--;
 
-				if(outstandingUrls === 0) {
+				if (outstandingUrls === 0) {
 					replyFiles(res, clientFiles);
 				}				
 			});
 		}
 
 	});
-
 });
 
 app.get('/', function (req, res) {
 	res.sendFile(__dirname + '/public/index.html');
 });
 
-app.post('/upload', function (req, res) {
-	
-});
-
-http.listen(3000, function() {
-	console.log('listenining on *:3000');
+http.listen(process.env.PORT || 3000, function() {
+	console.log('listening on *:3000');
 });
