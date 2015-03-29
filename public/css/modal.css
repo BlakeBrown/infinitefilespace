@@ -12,18 +12,6 @@
 	box-shadow: 0 1px 1px 0 rgba(0,0,0,.2);
 }
 
-.grid__item:hover {
-	cursor: move;
-	cursor: -webkit-grab;
-	cursor: grab;
-}
-
-.grid__item:active {
-	cursor: -webkit-grabbing;
-	cursor: grabbing;
-	border-color: $primary-color;
-}
-
 .grid_photo {
 	background-size: cover !important;
 	background-repeat: no-repeat;
@@ -31,8 +19,12 @@
 }
 
 .grid_photo:hover {
-	cursor: zoom-in;
+	cursor: pointer;
 	opacity: 0.8;
+}
+
+label:hover {
+	cursor: pointer !important;
 }
 
 .is-dragging {
