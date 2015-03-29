@@ -1358,10 +1358,11 @@ label:not([for]) {
   font-weight: normal; }
 
 #upload {
-  border: #3592dd 1px dashed;
+  background: #4293c2;
+  color: #fff;
   width: 100%; }
-  #upload:hover, #upload:focus {
-    background: #3592dd;
+  #upload:hover {
+    background: #3985b1;
     color: #fff; }
   #upload:active {
     border: 0; }
@@ -1370,5 +1371,19 @@ label:not([for]) {
   width: 17px;
   height: 17px;
   margin-right: 8px; }
+
+.banner {
+  border-bottom: #d1dade 1px solid; }
+
+#before_grid {
+  width: 767px; }
+
+.logo {
+  background: url(data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20enable-background%3D%22new%200%200%2024%2024%22%3E%3Cstyle%20type%3D%22text%2Fcss%22%3Ecircle%2Cellipse%2Cline%2Cpath%2Cpolygon%2Cpolyline%2Crect%2Ctext%7Bfill%3A%23212529%20%21important%3B%20%7D%3C%2Fstyle%3E%3Cg%3E%3Cpath%20d%3D%22M16.5%206h-15C.7%206%200%206.7%200%207.5v15c0%20.8.7%201.5%201.5%201.5h15c.8%200%201.5-.7%201.5-1.5v-15c0-.8-.7-1.5-1.5-1.5zM13%2020H5c-.6%200-1-.4-1-1s.4-1%201-1h8c.6%200%201%20.4%201%201s-.4%201-1%201zm0-4H5c-.6%200-1-.4-1-1s.4-1%201-1h8c.6%200%201%20.4%201%201s-.4%201-1%201zm0-4H5c-.6%200-1-.4-1-1s.4-1%201-1h8c.6%200%201%20.4%201%201s-.4%201-1%201zM22.5%200h-15C6.7%200%206%20.7%206%201.5v2c0%20.3.2.5.5.5h12c.8%200%201.5.7%201.5%201.5v12c0%20.3.2.5.5.5h2c.8%200%201.5-.7%201.5-1.5v-15c0-.8-.7-1.5-1.5-1.5z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E);
+  height: 25px;
+  width: 25px; }
+
+*:focus {
+  border: 0; }
 
 /*# sourceMappingURL=galaxy.css.map */

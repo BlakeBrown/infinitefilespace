@@ -16,27 +16,30 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
 </head>
 
-<body>
+<body ondragstart="return false">
+
 	<div g="centered xlg-container">
 		<section g="centered">
 			<aside g="column lg-padding-t xlg-padding-lr">
-				<h3>Filespace</h3>
+				<h3><span class="logo"></span>Filespace.</h3>
 				<button id="upload"><i class="fa fa-upload"></i></button>
 				<ul style="list-style-type: none" g="left">
-					<li><b>Main</b></li>
+
 					<li><img src="iconic/svg/file.svg" class="menu-icon">Files</li>
 					<li><img src="iconic/svg/image.svg" class="menu-icon">Photos</li>
 					<li><img src="iconic/svg/share.svg" class="menu-icon">Sharing</li>
-					<li>Get Started</li>
+					<hr style="margin: .5em 0">
+					<li><a href="/" id="get_started">Get Started</a></li>
+
 				</ul>
-				<ul>
+				<ul style="padding-top: 76px;">
 					<span style="font-size: .9em; color: rgba(103, 103, 103, 0.39)"><span id="used_data">23MB</span>/ <span class="total_data">4112MB</span></span>
-					<div style="height: .3em; background: #000; width: 100%"></div>
+					<div style="height: .3em; background: #000; width: 100%;"></div>
 				</ul>
 			</aside>
-			<div g="column">
-				<img src="https://s.gravatar.com/avatar/ddd0766bc90ec946f29d32589836cf2c?s=80" width="50" style="position: absolute; right: 12em; top: 3em; width: 50px; height: 50px; border-radius: 50%;">
-				<header g="left lg-margin-t">
+			<div g="column" id="before_grid">
+				<img src="https://s.gravatar.com/avatar/ddd0766bc90ec946f29d32589836cf2c?s=80" width="50" style="position: absolute; right: 12em; top: 3em; width: 50px; height: 50px; border-radius: 50%; cursor: pointer">
+				<header g="left lg-margin-t" class="banner">
 					<h4>Home</h4>
 				</header>
 				<hr>
@@ -44,7 +47,8 @@
 			</div>
 
 		</section>
-		
+
+
 		<div id="drop-area" class="drop-area">
 			<div class="drop-area__item"></div>
 			<div class="drop-area__item"></div>
@@ -52,6 +56,7 @@
 
 		<div class="drop-overlay"></div>
 	</div>
+
 
 	<script src="js/script.js"></script>
 	<script src="js/draggabilly.pkgd.min.js"></script>
