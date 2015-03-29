@@ -127,12 +127,9 @@ function initGrid() {
 					dropAreaTimeout = setTimeout( afterDropFn, 400 );
 				}
 			}
-		} );
-	};
-});
-
-
-
+		});
+	});
+}
 
 
 (function() {
@@ -175,8 +172,6 @@ function initGrid() {
 	triggerBttn.addEventListener( 'click', toggleOverlay );
 	closeBttn.addEventListener( 'click', toggleOverlay );
 })();
-	} );
-};
 
 //this function is called when the input loads a video
 function renderImage(file) {
