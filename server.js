@@ -105,7 +105,6 @@ app.get('/files', function (req, res) {
 				hasThumbnail: false
 			});
 
-
 			var curFile = clientFiles[i];
 			var curServerFile = files[i];
 
@@ -127,8 +126,4 @@ app.get('/', function (req, res) {
 
 app.post('/upload', function (req, res) {
 	
-});
-
-http.listen(3000, function() {
-	console.log('listenining on *:3000');
 });
