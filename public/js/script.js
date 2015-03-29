@@ -211,3 +211,25 @@ $("#upload").on("click", function() {
 $("#upload_file").change(function() {
 	renderImage(this.files[0]);
 });
+
+$("#list_photos").on("click", function() {
+	var items = $(".grid__item");
+	for (var i = 0; i < items.length; i++) {
+		if(!$(items[i]).hasClass("image")) {
+			$(items[i]).closest('[g~="column"]').hide();
+		} else {
+			$(items[i]).closest('[g~="column"]').show();
+		}
+	};
+});
+
+$("#list_files").on("click", function() {
+	var items = $(".grid__item");
+	for (var i = 0; i < items.length; i++) {
+		if(!$(items[i]).hasClass("image")) {
+			$(items[i]).closest('[g~="column"]').show();
+		} else {
+			$(items[i]).closest('[g~="column"]').hide();
+		}
+	};
+});

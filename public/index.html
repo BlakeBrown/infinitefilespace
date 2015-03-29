@@ -24,8 +24,8 @@
 				<input id="upload_file" type="file" style="display:none">
 				<ul style="list-style-type: none" g="left">
 
-					<li><img src="iconic/svg/file.svg" class="menu-icon">Files</li>
-					<li><img src="iconic/svg/image.svg" class="menu-icon">Photos</li>
+					<li id="list_files"><img src="iconic/svg/file.svg" class="menu-icon">Files</li>
+					<li id="list_photos"><img src="iconic/svg/image.svg" class="menu-icon">Photos</li>
 					<li><img src="iconic/svg/share.svg" class="menu-icon">Sharing</li>
 					<hr style="margin: .5em 0">
 					<li><a id="authorize-button" style="visibility: hidden">Add account <i class="fa fa-plus"></i></a></li>
@@ -131,72 +131,68 @@
             	console.log(createdDate);
             	var icon = '<i class="fa fa-fw fa-file-' + getIcon(getType(name)) + '"></i>';
             	if (url) icon = '';
-        		var card = '<div g="column"><a href="' + url + '" download><div class="grid__item grid_photo ' + '" style="background-image: url(' + url + ')">' + icon + '</div><label>' + name + '</label></a><span style="font-size: 0.7em">' + createdDate + '</span></div>';
+        		var card = '<div g="column"><a href="' + url + '" download><div class="grid__item grid_photo image' + '" style="background-image: url(' + url + ')">' + icon + '</div><label>' + name + '</label></a><span style="font-size: 0.7em">' + createdDate + '</span></div>';
     			$('#grid').append(card);
             	//var dateCreated = resp.items[i].createdDate;
             	//var date = timeSince(dateCreated);
 
             }
-          });      
+            initGrid();
+          });        
         });
       }
 
+	function initGrid() {
+		var body = document.body,
+			dropArea = document.getElementById( 'drop-area' ),
+			droppableArr = [], dropAreaTimeout;
 
-
-
-
-
-function initGrid() {
-	var body = document.body,
-		dropArea = document.getElementById( 'drop-area' ),
-		droppableArr = [], dropAreaTimeout;
-
-	[].slice.call( document.querySelectorAll( '#drop-area .drop-area__item' )).forEach( function( el ) {
-		droppableArr.push( new Droppable( el, {
-			onDrop : function( instance, draggableEl ) {
-				// show checkmark inside the droppabe element
-				classie.add( instance.el, 'drop-feedback' );
-				clearTimeout( instance.checkmarkTimeout );
-				instance.checkmarkTimeout = setTimeout( function() {
-						classie.remove( instance.el, 'drop-feedback' );
-				}, 800 );
-				// ...
-			}
-		} ) );
-	} );
-
-	[].slice.call(document.querySelectorAll( '#grid .grid__item' )).forEach( function( el ) {
-		new Draggable( el, droppableArr, {
-			draggabilly : { containment: document.body },
-			onStart : function() {
-				// add class 'drag-active' to body
-				classie.add( body, 'drag-active' );
-				// clear timeout: dropAreaTimeout (toggle drop area)
-				clearTimeout( dropAreaTimeout );
-				// show dropArea
-				classie.add( dropArea, 'show' );
-			},
-			onEnd : function( wasDropped ) {
-				var afterDropFn = function() {
-					// hide dropArea
-					classie.remove( dropArea, 'show' );
-					// remove class 'drag-active' from body
-					classie.remove( body, 'drag-active' );
-				};
-
-				if( !wasDropped ) {
-					afterDropFn();
+		[].slice.call( document.querySelectorAll( '#drop-area .drop-area__item' )).forEach( function( el ) {
+			droppableArr.push( new Droppable( el, {
+				onDrop : function( instance, draggableEl ) {
+					// show checkmark inside the droppabe element
+					classie.add( instance.el, 'drop-feedback' );
+					clearTimeout( instance.checkmarkTimeout );
+					instance.checkmarkTimeout = setTimeout( function() {
+							classie.remove( instance.el, 'drop-feedback' );
+					}, 800 );
+					// ...
 				}
-				else {
-					// after some time hide drop area and remove class 'drag-active' from body
+			} ) );
+		} );
+
+		[].slice.call(document.querySelectorAll( '#grid .grid__item' )).forEach( function( el ) {
+			new Draggable( el, droppableArr, {
+				draggabilly : { containment: document.body },
+				onStart : function() {
+					// add class 'drag-active' to body
+					classie.add( body, 'drag-active' );
+					// clear timeout: dropAreaTimeout (toggle drop area)
 					clearTimeout( dropAreaTimeout );
-					dropAreaTimeout = setTimeout( afterDropFn, 400 );
+					// show dropArea
+					classie.add( dropArea, 'show' );
+				},
+				onEnd : function( wasDropped ) {
+					var afterDropFn = function() {
+						// hide dropArea
+						classie.remove( dropArea, 'show' );
+						// remove class 'drag-active' from body
+						classie.remove( body, 'drag-active' );
+					};
+
+					if( !wasDropped ) {
+						afterDropFn();
+					}
+					else {
+						// after some time hide drop area and remove class 'drag-active' from body
+						clearTimeout( dropAreaTimeout );
+						dropAreaTimeout = setTimeout( afterDropFn, 400 );
+					}
 				}
-			}
+			});
 		});
-	});
-}
-initGrid();
+	}
+
     </script>
     <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>    
 </body>

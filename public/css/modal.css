@@ -1,4 +1,6 @@
-
+#list_photos:hover, #list_files:hover {
+	cursor: pointer;
+}
 
 .grid__item {
 	padding-top: 1.5em;
