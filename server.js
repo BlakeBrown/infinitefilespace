@@ -2,10 +2,12 @@ var express = require('express'),
 	path	= require("path"),
 	Dropbox = require('dropbox'),
 	fs 		= require('fs'),
-	app 	= express();
-	http 	= require('http').Server(app);
+	app 	= express(),
+	http 	= require('http').Server(app),
+	bodyParser = require('body-parser');
 
 app.use(express.static(path.join(__dirname, '/public')));
+app.use(bodyParser.urlencoded({extended: true}));
 
 // This is our infinity-HackWesternReal Dropbox app info.
 var client = new Dropbox.Client({
@@ -18,25 +20,18 @@ client.authDriver(new Dropbox.AuthDriver.NodeServer(8191));
 function getFiles(callback) {
 	client.authenticate(function (error, client) {
 		if (error) return showError(error);
-
-		console.log('successful authentication:');
-
 		client.getAccountInfo(function (error, data) {
 			if (error) return showError(error);
 			var client_data = data;
 			client.readdir('/', function (error, entries, folder_data, file_data) {
 				if (error) return showError(error);
-
 				callback(file_data, client_data);
 			});
-
 		});
-
 	});
 }
 
 function replyFiles(res, clientFiles) {
-	console.log(clientFiles);
 	res.json(clientFiles);
 } 
 
@@ -131,6 +126,13 @@ app.get('/files', function (req, res) {
 		}
 
 	});
+});
+
+app.post('/upload', function(request, response) {
+	client.writeFile(request.body.name, request.body.url, function (error, stat) {
+		console.log(error);
+	});
+	
 });
 
 app.get('/', function (req, res) {
