@@ -90,4 +90,13 @@ $(document).ready(function () {
 			} );
 		} );
 	};
+
+	$("#upload").on("click", function() {
+		$("#upload_file").click();
+	});
+
+	$("#upload_file").change(function() {
+		console.log(this.files);
+	});
+
 });
