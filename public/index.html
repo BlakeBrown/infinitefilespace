@@ -11,10 +11,18 @@
 	<link rel="stylesheet" type="text/css" href="css/modal.css" />
 	<link rel="stylesheet" href="galaxy/galaxy.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-corner-indicator.css">
+
+
 </head>
 
 <body ondragstart="return false">
-
+	<tabs>
+		<ul>
+			<li>Files</li>
+			<li>Photos</li>
+			<li>Sharing</li>
+		</ul>
+	</tabs>
 	<div g="centered xlg-container">
 		<section g="centered">
 			<aside g="column lg-padding-t xlg-padding-lr">
@@ -27,8 +35,8 @@
 					<li><img src="iconic/svg/image.svg" class="menu-icon">Photos</li>
 					<li><img src="iconic/svg/share.svg" class="menu-icon">Sharing</li>
 					<hr style="margin: .5em 0">
-					<li><a href="/" id="get_started">Get Started</a></li>
-
+					<li><a id="trigger-overlay">Add account <i class="fa fa-plus"></i></a></li>
+					
 				</ul>
 				<ul style="padding-top: 76px;">
 					<span style="font-size: .9em; color: rgba(103, 103, 103, 0.39)"><span id="used_data">23MB</span>/ <span class="total_data">4112MB</span></span>
@@ -54,14 +62,34 @@
 
 		<div class="drop-overlay"></div>
 	</div>
+	<div class="overlay overlay-hugeinc">
+	<button type="button" class="overlay-close">Close</button>
+	<nav>
+		<form action="">
+			<input type="text" placeholder="Your email" g="4 centered">
+			<input type="password" placeholder="Your password" g="4 centered">
+			<button g="primary 4 centered">Add account</button>
+		</form>
+	</nav>
+</div>
+	<!-- <div id="add_accounts">
+		<form action="">
+			<input type="text" placeholder="Your email">
+			<input type="password" placeholder="Your password">
+			<button g="primary">Add account</button>
+		</form>
+		
+	</div> -->
 
-	<script src="js/modernizr.custom.js"></script>
 	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+	<script src="http://devble.com/examples/fullscreen-menu/modernizr.custom.js"></script>
+	<script src="http://devble.com/examples/fullscreen-menu/classie.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
 	<script src="https://www.dropbox.com/static/api/dropbox-datastores-1.0-latest.js"></script>
 	<script src="js/date.js"></script>
 	<script src="js/script.js"></script>
 	<script src="js/draggabilly.pkgd.min.js"></script>
 	<script src="js/dragdrop.js"></script>
+
 </body>
 </html>
