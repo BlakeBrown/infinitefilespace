@@ -3,7 +3,7 @@ var express = require('express'),
 	Dropbox = require('dropbox'),
 	fs 		= require('fs'),
 	app 	= express();
-	http 	= require('http').Server(app),
+	http 	= require('http').Server(app);
 
 app.use(express.static(path.join(__dirname, '/public')));
 
@@ -21,32 +21,36 @@ function getFiles(callback) {
 		if (error) return showError(error);
 
 		console.log('successful authentication:');
+
 		client.getAccountInfo(function (error, data) {
 			if (error) return showError(error);
-			console.log(data.email);
+			var client_data = data;
+			client.readdir('/', function (error, entries, folder_data, file_data) {
+				if (error) return showError(error);
+
+				callback(file_data, client_data);
+			});
+
 		});
 
-		client.readdir('/', function (error, entries, folder_data, file_data) {
-			if (error) return showError(error);
-			callback && callback(file_data);
-		});
 	});
 }
 
-function reply(res, clientFiles) {
+function replyFiles(res, clientFiles) {
 	console.log(clientFiles);
 	res.json(clientFiles);
-}
+} 
 
 function copyDropboxData(curServerFile, curFile, callback) {
 	var file_url;
-	console.log(curServerFile.path);
+
 	client.makeUrl(curServerFile.path, {downloadHack: true}, function (error, file_data) {
 		file_url = file_data.url;
 		curFile.url = file_url;
 		if(curServerFile.hasThumbnail) {
 			curFile.hasThumbnail = true;
 		}
+		curFile.timeSincePosted = timeSince(Date.parse(curServerFile.modifiedAt));
 		callback();
 	});	
 }
@@ -67,6 +71,34 @@ function submitFile(filepath) {
     });
 }
 
+function timeSince(date) {
+
+    var seconds = Math.floor((new Date() - date) / 1000);
+
+    var interval = Math.floor(seconds / 31536000);
+
+    if (interval > 1) {
+        return interval + " years ago";
+    }
+    interval = Math.floor(seconds / 2592000);
+    if (interval > 1) {
+        return interval + " months ago";
+    }
+    interval = Math.floor(seconds / 86400);
+    if (interval > 1) {
+        return interval + " days ago";
+    }
+    interval = Math.floor(seconds / 3600);
+    if (interval > 1) {
+        return interval + " hours ago";
+    }
+    interval = Math.floor(seconds / 60);
+    if (interval > 1) {
+        return interval + " minutes ago";
+    }
+    return Math.floor(seconds) + " seconds ago";
+}
+
 function showError (error) {
     console.log(error.status);
 }
@@ -74,13 +106,17 @@ function showError (error) {
 app.get('/files', function (req, res) {
 	var clientFiles = [];
 
-	getFiles(function (files) {
+	getFiles(function (files, client_data) {
+	
 		var outstandingUrls = files.length;
+
 		for (var i = 0, len = files.length; i < len; i++) {
+
 			clientFiles.push({
 				name: files[i].name,
 				url: null,
-				hasThumbnail: false
+				hasThumbnail: false,
+				timeSincePosted: null
 			});
 
 			var curFile = clientFiles[i];
@@ -88,11 +124,13 @@ app.get('/files', function (req, res) {
 
 			copyDropboxData(curServerFile, curFile, function () {
 				outstandingUrls--;
+
 				if (outstandingUrls === 0) {
-					reply(res, clientFiles);
+					replyFiles(res, clientFiles);
 				}				
 			});
 		}
+
 	});
 });
 

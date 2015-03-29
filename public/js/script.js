@@ -1,9 +1,10 @@
 $(document).ready(function () {
-	$.getJSON('files', function (data) {
+	$.getJSON('files', function (data, client_data) {
 		if (!data || data.length === 0) {
 			console.log('error retrieving files');
 			return;
 		}
+		console.log(client_data);
 		data.forEach(addFile);
 		initFiles();
 	});
@@ -11,10 +12,10 @@ $(document).ready(function () {
 	function addFile(file) {
 		var filetype = getType(),
 			icon = '<i class="fa fa-fw fa-file-' + getIcon(filetype) + '"></i>',
-			card = '<div g="column"><div class="grid__item ' + filetype + '"></div><a href="' + file.url + '" download><label>' + icon + file.name + '</label></a><span style="font-size: 0.7em">1 Min ago</span></div>';
+			card = '<div g="column"><div class="grid__item ' + filetype + '"></div><a href="' + file.url + '" download><label>' + icon + file.name + '</label></a><span style="font-size: 0.7em">' + file.timeSincePosted + '</span></div>';
 		if (file.hasThumbnail) {
 			icon = '';
-			card = '<div g="column"><div class="grid__item grid_photo ' + filetype + '" style="background-image: url(' + file.url + ')">' + icon + '</div><a href="' + file.url + '" download><label>' + file.name + '</label></a></div>';
+			card = '<div g="column"><div class="grid__item grid_photo ' + filetype + '" style="background-image: url(' + file.url + ')">' + icon + '</div><a href="' + file.url + '" download><label>' + file.name + '</label></a><span style="font-size: 0.7em">' + file.timeSincePosted + '</span></div>';
 		}
         $('#grid').append(card);
 
