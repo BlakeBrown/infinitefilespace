@@ -1563,7 +1563,8 @@ header {
   overflow: hidden;
   background: #fff;
   width: 7em;
-  height: 4.5em; }
+  height: 4.5em;
+  padding-left: 0.3em; }
   .grid__item .fa {
     color: #3592dd; }
 

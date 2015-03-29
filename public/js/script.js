@@ -3,6 +3,7 @@ var folderPath = '';
 
 $(document).ready(function () {
     if (client.isAuthenticated()) {
+    	getUser();
     	getFiles('');
     } else {
 		client.authenticate(function (error, client) {
@@ -10,6 +11,7 @@ $(document).ready(function () {
 	        	console.log('Error: ' + error);
 	        	return;
 	        }
+    		getUser();
 	        getFiles('');
 	    });
     }
@@ -17,6 +19,13 @@ $(document).ready(function () {
 
 function clearFiles() {
 	$('#grid').empty();
+}
+
+function getUser() {
+	client.getAccountInfo(function(error, info) {
+		if (error) return showError(error);
+		console.log(info);
+	});
 }
 
 function getFiles(path) {
@@ -37,7 +46,7 @@ function getFiles(path) {
 	function addFile(file) {
 		var type = getType();
 		var icon = '<i class="fa fa-fw fa-file-' + getIcon(type) + '"></i>';
-		var card = '<div g="column"><a href="' + file.url + '" download><div class="grid__item ' + type + '"></div><label>' + icon + file.name + '</label></a><span style="font-size: 0.7em">' + file.timeSincePosted + '</span></div>';
+		var card = '<div g="column"><a href="' + file.url + '" download><div class="grid__item ' + type + '">' + icon + '</div><label>' + file.name + '</label></a><span style="font-size: 0.7em">' + file.timeSincePosted + '</span></div>';
 		if (file.hasThumbnail) {
 			card = '<div g="column"><a href="' + file.url + '" download><div class="grid__item grid_photo ' + type + '" style="background-image: url(' + file.url + ')"></div><label>' + file.name + '</label></a><span style="font-size: 0.7em">' + file.timeSincePosted + '</span></div>';
 		}
