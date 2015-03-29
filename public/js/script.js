@@ -36,6 +36,7 @@ function getFiles(path) {
 
 	function addFile(file) {
 		var type = getType();
+		console.log(type);
 		var icon = '<i class="fa fa-fw fa-file-' + getIcon(type) + '"></i>';
 		var card = '<div g="column"><a href="' + file.url + '" download><div class="grid__item ' + type + '"></div><label>' + icon + file.name + '</label></a><span style="font-size: 0.7em">' + file.timeSincePosted + '</span></div>';
 		if (file.hasThumbnail) {
@@ -201,4 +202,26 @@ $("#upload").on("click", function() {
 
 $("#upload_file").change(function() {
 	renderImage(this.files[0]);
+});
+
+$("#list_photos").on("click", function() {
+	var items = $(".grid__item");
+	for (var i = 0; i < items.length; i++) {
+		if(!$(items[i]).hasClass("image")) {
+			$(items[i]).closest('[g~="column"]').hide();
+		} else {
+			$(items[i]).closest('[g~="column"]').show();
+		}
+	};
+});
+
+$("#list_files").on("click", function() {
+	var items = $(".grid__item");
+	for (var i = 0; i < items.length; i++) {
+		if(!$(items[i]).hasClass("image")) {
+			$(items[i]).closest('[g~="column"]').show();
+		} else {
+			$(items[i]).closest('[g~="column"]').hide();
+		}
+	};
 });
