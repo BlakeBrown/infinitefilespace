@@ -1552,9 +1552,42 @@ alert {
     This is the SASS that overrides Galaxy.
     _______
 */
+body {
+  font-size: 16px; }
+
+header {
+  z-index: 0;
+  background: transparent; }
+
 .grid__item {
   overflow: hidden;
-  background: #3592dd; }
+  background: #fff;
+  width: 5em;
+  height: 4.5em; }
+  .grid__item .fa {
+    color: #3592dd; }
 
 body {
-  font-family: "Lucida Grande"; }
+  font-family: "Open Sans", "Lucida Grande"; }
+
+header#menu {
+  box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.07);
+  background: #f1f1f1; }
+
+label:not([for]) {
+  padding: .8rem 0 .8rem;
+  font-weight: normal; }
+
+#upload {
+  border: #3592dd 1px dashed;
+  width: 100%; }
+  #upload:hover, #upload:focus {
+    background: #3592dd;
+    color: #fff; }
+  #upload:active {
+    border: 0; }
+
+.menu-icon {
+  width: 17px;
+  height: 17px;
+  margin-right: 8px; }

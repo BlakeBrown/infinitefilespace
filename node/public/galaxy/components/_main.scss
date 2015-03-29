@@ -5,13 +5,55 @@
     _______
 */
 
+body {
+	font-size: 16px;
+}
+
+$light-primary-color: #e3f2ff;
+
+header {
+	z-index: 0;
+	background: transparent;
+}
+
 .grid__item {
 	overflow: hidden;
-	background: $primary-color;
+	background: #fff;
+	width: 5em;
+	height: 4.5em;
+	.fa {
+		color: $primary-color
+	}
 }
 
 
 body {
-	font-family: "Lucida Grande"
+	font-family: "Open Sans", "Lucida Grande";
 }
 
+header#menu {
+	box-shadow: inset 1px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07);
+	background: #f1f1f1;
+}
+label:not([for]) {
+	padding: .8rem 0 .8rem;
+	font-weight: normal
+}
+
+#upload {
+	border: $primary-color 1px dashed;
+	width: 100%;
+	&:hover, &:focus {
+		background: $primary-color;
+		color: #fff;
+	}
+	&:active {
+		border: 0;
+	}
+}
+
+.menu-icon {
+	width: 17px;
+	height: 17px;
+	margin-right: 8px;
+}

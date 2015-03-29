@@ -7,7 +7,7 @@ $(document).ready(function () {
                         console.log('error retrieving files');
                         return;
                 }
-   			
+   			    console.log(data);
                 data.forEach(addFile);
                 initFiles();
  
