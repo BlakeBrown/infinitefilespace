@@ -28,7 +28,7 @@
 					<li><img src="iconic/svg/image.svg" class="menu-icon">Photos</li>
 					<li><img src="iconic/svg/share.svg" class="menu-icon">Sharing</li>
 					<hr style="margin: .5em 0">
-					<li><a id="trigger-overlay">Add account <i class="fa fa-plus"></i></a></li>
+					<li><a id="authorize-button" style="visibility: hidden">Add account <i class="fa fa-plus"></i></a></li>
 					
 				</ul>
 				<ul style="padding-top: 76px;">
@@ -74,15 +74,71 @@
 		
 	</div> -->
 
-	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="http://devble.com/examples/fullscreen-menu/modernizr.custom.js"></script>
 	<script src="http://devble.com/examples/fullscreen-menu/classie.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
 	<script src="https://www.dropbox.com/static/api/dropbox-datastores-1.0-latest.js"></script>
-	<script src="js/date.js"></script>
+	
 	<script src="js/script.js"></script>
 	<script src="js/draggabilly.pkgd.min.js"></script>
 	<script src="js/dragdrop.js"></script>
+    <script type="text/javascript">
+      var clientId = '766073445398-mj7vlvphri2a54pkmn1e9eapu3dkc6f3.apps.googleusercontent.com';
+      var apiKey = 'AIzaSyAOCKS4OLptIyuefC2OBdPEi9uJU840GAQ';
+      // To enter one or more authentication scopes, refer to the documentation for the API.
+      var scopes = 'https://www.googleapis.com/auth/drive';
 
+      // Use a button to handle authentication the first time.
+      function handleClientLoad() {
+        gapi.client.setApiKey(apiKey);
+        window.setTimeout(checkAuth,1);
+      }
+
+      function checkAuth() {
+        gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true}, handleAuthResult);
+      }
+
+      function handleAuthResult(authResult) {
+        var authorizeButton = document.getElementById('authorize-button');
+        if (authResult && !authResult.error) {
+          authorizeButton.style.visibility = 'hidden';
+          makeApiCall();
+        } else {
+          authorizeButton.style.visibility = '';
+          authorizeButton.onclick = handleAuthClick;
+        }
+      }
+
+      function handleAuthClick(event) {
+        gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);
+        return false;
+      }
+
+      // Load the API and make an API call.  Display the results on the screen.
+      function makeApiCall() {
+        gapi.client.load('drive', 'v2', function() {
+
+          var request = gapi.client.drive.files.list ();
+
+          request.execute(function(resp) {          
+            for (i=0; i<resp.items.length; i++) {
+            	console.log(resp.items[i]);
+
+            	var name = resp.items[i].title;
+            	var url = resp.items[i].thumbnailLink;
+            	// var createdDate = Date.parse(resp.items[i].createdDate);
+            	// console.log(createdDate);
+        		var card = '<div g="column"><a href="' + url + '" download><div class="grid__item grid_photo ' + '" style="background-image: url(' + url + ')"></div><label>' + name + '</label></a><span style="font-size: 0.7em">' + "Just posted" + '</span></div>';
+    			$('#grid').append(card);
+            	//var dateCreated = resp.items[i].createdDate;
+            	//var date = timeSince(dateCreated);
+
+            }
+          });        
+        });
+      }
+    </script>
+    <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>    
 </body>
 </html>
