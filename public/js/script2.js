@@ -4,7 +4,7 @@ $(document).ready(function () {
     if (client.isAuthenticated()) {
     	getFiles();
     } else {
-		client.authenticate({ interactive: false }, function (error, client) {
+		client.authenticate(function (error, client) {
 			console.log(client);
 	        if (error) {
 	        	console.log('Error: ' + error);
