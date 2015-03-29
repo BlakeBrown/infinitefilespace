@@ -134,28 +134,20 @@ function initGrid() {
 //this function is called when the input loads a video
 function renderImage(file) {
     var reader = new FileReader();
+	//when the file is read it triggers the onload event above.
+    reader.readAsArrayBuffer(file);
     reader.onload = function(event) {
         var url = event.target.result;
 		var card = '<div g="column"><div class="grid__item grid_photo ' + "jpeg" + '" style="background-image: url(' + url + ')">' + '</div><a href="' + url + '" download><label>' + file.name + '</label></a><span style="font-size: 0.7em">' + "Just posted" + '</span></div>';
 		$('#grid').append(card);
-		$.ajax({
-			method: 'post',
-			url: 'upload',
-			data: { 
-				url: "HACK WESTERN FOR LIFE! :)",
-				name: file.name
-			},
-			success: function(response) {
-				console.log(response);
-			},
-			error: function(response) {
-				console.log(response);
-			}
+		var data = { 
+			url: reader.result,
+			name: file.name
+		};
+		client.writeFile(data.name, data.url, function (error, stat) {
+			console.log(error);
 		});
     }
-
-	//when the file is read it triggers the onload event above.
-    reader.readAsDataURL(file);
 }
 
 $("#upload").on("click", function() {
