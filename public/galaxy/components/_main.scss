@@ -20,7 +20,7 @@ background: transparent;
 .grid__item {
 overflow: hidden;
 background: #fff;
-width: 5em;
+width: 7em;
 height: 4.5em;
 .fa {
 color: $primary-color
@@ -266,4 +266,7 @@ body #cdawrap {
 .overlay-hugeinc.close nav ul {
 	-webkit-transform: translateY(25%) rotateX(-35deg);
 	transform: translateY(25%) rotateX(-35deg);
+}
+*:focus {
+	outline: 0;
 }

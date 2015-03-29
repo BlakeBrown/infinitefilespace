@@ -1341,7 +1341,7 @@ header {
 .grid__item {
   overflow: hidden;
   background: #fff;
-  width: 5em;
+  width: 7em;
   height: 4.5em; }
   .grid__item .fa {
     color: #3592dd; }
@@ -1537,5 +1537,8 @@ body #cdawrap {
 .overlay-hugeinc.close nav ul {
   -webkit-transform: translateY(25%) rotateX(-35deg);
   transform: translateY(25%) rotateX(-35deg); }
+
+*:focus {
+  outline: 0; }
 
 /*# sourceMappingURL=galaxy.css.map */

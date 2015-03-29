@@ -83,100 +83,98 @@ function initGrid() {
 		dropArea = document.getElementById( 'drop-area' ),
 		droppableArr = [], dropAreaTimeout;
 
-	// initialize droppables
-	// [].slice.call( document.querySelectorAll( '#drop-area .drop-area__item' )).forEach( function( el ) {
-	// 	droppableArr.push( new Droppable( el, {
-	// 		onDrop : function( instance, draggableEl ) {
-	// 			// show checkmark inside the droppabe element
-	// 			classie.add( instance.el, 'drop-feedback' );
-	// 			clearTimeout( instance.checkmarkTimeout );
-	// 			instance.checkmarkTimeout = setTimeout( function() {
-	// 					classie.remove( instance.el, 'drop-feedback' );
-	// 			}, 800 );
-	// 			// ...
-	// 		}
-	// 	} ) );
-	// } );
+	[].slice.call( document.querySelectorAll( '#drop-area .drop-area__item' )).forEach( function( el ) {
+		droppableArr.push( new Droppable( el, {
+			onDrop : function( instance, draggableEl ) {
+				// show checkmark inside the droppabe element
+				classie.add( instance.el, 'drop-feedback' );
+				clearTimeout( instance.checkmarkTimeout );
+				instance.checkmarkTimeout = setTimeout( function() {
+						classie.remove( instance.el, 'drop-feedback' );
+				}, 800 );
+				// ...
+			}
+		} ) );
+	} );
 
-	// initialize draggable(s)
-	// [].slice.call(document.querySelectorAll( '#grid .grid__item' )).forEach( function( el ) {
-	// 	new Draggable( el, droppableArr, {
-	// 		draggabilly : { containment: document.body },
-	// 		onStart : function() {
-	// 			// add class 'drag-active' to body
-	// 			classie.add( body, 'drag-active' );
-	// 			// clear timeout: dropAreaTimeout (toggle drop area)
-	// 			clearTimeout( dropAreaTimeout );
-	// 			// show dropArea
-	// 			classie.add( dropArea, 'show' );
-	// 		},
-	// 		onEnd : function( wasDropped ) {
-	// 			var afterDropFn = function() {
-	// 				// hide dropArea
-	// 				classie.remove( dropArea, 'show' );
-	// 				// remove class 'drag-active' from body
-	// 				classie.remove( body, 'drag-active' );
-	// 			};
+	[].slice.call(document.querySelectorAll( '#grid .grid__item' )).forEach( function( el ) {
+		new Draggable( el, droppableArr, {
+			draggabilly : { containment: document.body },
+			onStart : function() {
+				// add class 'drag-active' to body
+				classie.add( body, 'drag-active' );
+				// clear timeout: dropAreaTimeout (toggle drop area)
+				clearTimeout( dropAreaTimeout );
+				// show dropArea
+				classie.add( dropArea, 'show' );
+			},
+			onEnd : function( wasDropped ) {
+				var afterDropFn = function() {
+					// hide dropArea
+					classie.remove( dropArea, 'show' );
+					// remove class 'drag-active' from body
+					classie.remove( body, 'drag-active' );
+				};
 
-	// 			if( !wasDropped ) {
-	// 				afterDropFn();
-	// 			}
-	// 			else {
-	// 				// after some time hide drop area and remove class 'drag-active' from body
-	// 				console.log($(".drag-active").closest(".grid__item").find("a").attr('href'));
-	// 				clearTimeout( dropAreaTimeout );
-	// 				dropAreaTimeout = setTimeout( afterDropFn, 400 );
-	// 			}
-	// 		}
-	// 	});
-	// });
+				if( !wasDropped ) {
+					afterDropFn();
+				}
+				else {
+					// after some time hide drop area and remove class 'drag-active' from body
+					console.log($(".drag-active").closest(".grid__item").find("a").attr('href'));
+					clearTimeout( dropAreaTimeout );
+					dropAreaTimeout = setTimeout( afterDropFn, 400 );
+				}
+			}
+		});
+	});
 }
 
 
-// $(".grid__item").on("click", function() {
-// 	console.log($(this).find("a"));
-// });
+$(".grid__item").on("click", function() {
+	console.log($(this).find("a"));
+});
 
-// (function() {
-// 	var triggerBttn = document.getElementById( 'trigger-overlay' ),
-// 		overlay = document.querySelector( 'div.overlay' ),
-// 		closeBttn = overlay.querySelector( 'button.overlay-close' );
-// 		transEndEventNames = {
-// 			'WebkitTransition': 'webkitTransitionEnd',
-// 			'MozTransition': 'transitionend',
-// 			'OTransition': 'oTransitionEnd',
-// 			'msTransition': 'MSTransitionEnd',
-// 			'transition': 'transitionend'
-// 		},
-// 		transEndEventName = transEndEventNames[ Modernizr.prefixed( 'transition' ) ],
-// 		support = { transitions : Modernizr.csstransitions };
+(function() {
+	var triggerBttn = document.getElementById( 'trigger-overlay' ),
+		overlay = document.querySelector( 'div.overlay' ),
+		closeBttn = overlay.querySelector( 'button.overlay-close' );
+		transEndEventNames = {
+			'WebkitTransition': 'webkitTransitionEnd',
+			'MozTransition': 'transitionend',
+			'OTransition': 'oTransitionEnd',
+			'msTransition': 'MSTransitionEnd',
+			'transition': 'transitionend'
+		},
+		transEndEventName = transEndEventNames[ Modernizr.prefixed( 'transition' ) ],
+		support = { transitions : Modernizr.csstransitions };
 
-// 	function toggleOverlay() {
-// 		if( classie.has( overlay, 'open' ) ) {
-// 			classie.remove( overlay, 'open' );
-// 			classie.add( overlay, 'close' );
-// 			var onEndTransitionFn = function( ev ) {
-// 				if( support.transitions ) {
-// 					if( ev.propertyName !== 'visibility' ) return;
-// 					this.removeEventListener( transEndEventName, onEndTransitionFn );
-// 				}
-// 				classie.remove( overlay, 'close' );
-// 			};
-// 			if( support.transitions ) {
-// 				overlay.addEventListener( transEndEventName, onEndTransitionFn );
-// 			}
-// 			else {
-// 				onEndTransitionFn();
-// 			}
-// 		}
-// 		else if( !classie.has( overlay, 'close' ) ) {
-// 			classie.add( overlay, 'open' );
-// 		}
-// 	}
+	function toggleOverlay() {
+		if( classie.has( overlay, 'open' ) ) {
+			classie.remove( overlay, 'open' );
+			classie.add( overlay, 'close' );
+			var onEndTransitionFn = function( ev ) {
+				if( support.transitions ) {
+					if( ev.propertyName !== 'visibility' ) return;
+					this.removeEventListener( transEndEventName, onEndTransitionFn );
+				}
+				classie.remove( overlay, 'close' );
+			};
+			if( support.transitions ) {
+				overlay.addEventListener( transEndEventName, onEndTransitionFn );
+			}
+			else {
+				onEndTransitionFn();
+			}
+		}
+		else if( !classie.has( overlay, 'close' ) ) {
+			classie.add( overlay, 'open' );
+		}
+	}
 
-// 	triggerBttn.addEventListener( 'click', toggleOverlay );
-// 	closeBttn.addEventListener( 'click', toggleOverlay );
-// })();
+	triggerBttn.addEventListener( 'click', toggleOverlay );
+	closeBttn.addEventListener( 'click', toggleOverlay );
+})();
 
 //this function is called when the input loads a video
 function renderImage(file) {
