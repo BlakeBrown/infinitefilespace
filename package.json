@@ -13,6 +13,6 @@
   "dependencies": {
     "dropbox": "^0.10.3",
     "express": "^4.10.2",
-    "grunt": "^0.4.5",
+    "grunt": "^0.4.5"
   }
 }
