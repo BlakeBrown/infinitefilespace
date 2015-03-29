@@ -1,5 +1,6 @@
-#list_photos:hover, #list_files:hover {
+#list_photos:hover, #list_files:hover, #sharing_link:hover {
 	cursor: pointer;
+	color: #4293C2;
 }
 
 .grid__item {

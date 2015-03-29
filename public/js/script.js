@@ -208,9 +208,9 @@ $("#list_photos").on("click", function() {
 	var items = $(".grid__item");
 	for (var i = 0; i < items.length; i++) {
 		if(!$(items[i]).hasClass("image")) {
-			$(items[i]).closest('[g~="column"]').hide();
+			$(items[i]).closest('[g~="column"]').hide(500);
 		} else {
-			$(items[i]).closest('[g~="column"]').show();
+			$(items[i]).closest('[g~="column"]').show(500);
 		}
 	};
 });
@@ -219,9 +219,13 @@ $("#list_files").on("click", function() {
 	var items = $(".grid__item");
 	for (var i = 0; i < items.length; i++) {
 		if(!$(items[i]).hasClass("image")) {
-			$(items[i]).closest('[g~="column"]').show();
+			$(items[i]).closest('[g~="column"]').show(500);
 		} else {
-			$(items[i]).closest('[g~="column"]').hide();
+			$(items[i]).closest('[g~="column"]').hide(500);
 		}
 	};
+});
+
+$("#sharing_link").on("click", function() {
+	alert("Please share Filespace with your friends! :)")
 });
