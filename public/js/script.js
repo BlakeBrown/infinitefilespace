@@ -1,21 +1,39 @@
+var client = new Dropbox.Client({ key: 'urwnqx6tzbbcjt2' });
+
 $(document).ready(function () {
-	$.getJSON('files', function (data, client_data) {
-		if (!data || data.length === 0) {
-			console.log('error retrieving files');
-			return;
-		}
-		console.log(client_data);
-		data.forEach(addFile);
-		initFiles();
+    if (client.isAuthenticated()) {
+    	getFiles();
+    } else {
+		client.authenticate(function (error, client) {
+	        if (error) {
+	        	console.log('Error: ' + error);
+	        	return;
+	        }
+	        getFiles();
+	    });
+    }
+});
+
+function getFiles() {
+	client.readdir('/', function (error, entries, folder_data, file_data) {
+		var i = file_data.length;
+		file_data.forEach(function (file) {
+			client.makeUrl(file.path, {downloadHack: true}, function (error, file_data) {
+				file.url = file_data.url;
+				addFile(file);
+				i--;
+				if (i === 0) initGrid();
+			});
+		});
 	});
 
 	function addFile(file) {
-		var filetype = getType(),
-			icon = '<i class="fa fa-fw fa-file-' + getIcon(filetype) + '"></i>',
-			card = '<div g="column"><div class="grid__item ' + filetype + '"></div><a href="' + file.url + '" download><label>' + icon + file.name + '</label></a><span style="font-size: 0.7em">' + file.timeSincePosted + '</span></div>';
+		var type = getType();
+		var icon = '<i class="fa fa-fw fa-file-' + getIcon(type) + '"></i>';
+		var card = '<div g="column"><div class="grid__item ' + type + '"></div><a href="' + file.url + '" download><label>' + icon + file.name + '</label></a><span style="font-size: 0.7em">1 Min ago</span></div>';
 		if (file.hasThumbnail) {
 			icon = '';
-			card = '<div g="column"><div class="grid__item grid_photo ' + filetype + '" style="background-image: url(' + file.url + ')">' + icon + '</div><a href="' + file.url + '" download><label>' + file.name + '</label></a><span style="font-size: 0.7em">' + file.timeSincePosted + '</span></div>';
+			card = '<div g="column"><div class="grid__item grid_photo ' + type + '" style="background-image: url(' + file.url + ')">' + icon + '</div><a href="' + file.url + '" download><label>' + file.name + '</label></a></div>';
 		}
         $('#grid').append(card);
 
@@ -37,57 +55,57 @@ $(document).ready(function () {
 			return 'o';
 		}
 	}
+}
 
-	function initFiles() {
-		var body = document.body,
-			dropArea = document.getElementById( 'drop-area' ),
-			droppableArr = [], dropAreaTimeout;
+function initGrid() {
+	var body = document.body,
+		dropArea = document.getElementById( 'drop-area' ),
+		droppableArr = [], dropAreaTimeout;
 
-		// initialize droppables
-		[].slice.call( document.querySelectorAll( '#drop-area .drop-area__item' )).forEach( function( el ) {
-			droppableArr.push( new Droppable( el, {
-				onDrop : function( instance, draggableEl ) {
-					// show checkmark inside the droppabe element
-					classie.add( instance.el, 'drop-feedback' );
-					clearTimeout( instance.checkmarkTimeout );
-					instance.checkmarkTimeout = setTimeout( function() {
-							classie.remove( instance.el, 'drop-feedback' );
-					}, 800 );
-					// ...
+	// initialize droppables
+	[].slice.call( document.querySelectorAll( '#drop-area .drop-area__item' )).forEach( function( el ) {
+		droppableArr.push( new Droppable( el, {
+			onDrop : function( instance, draggableEl ) {
+				// show checkmark inside the droppabe element
+				classie.add( instance.el, 'drop-feedback' );
+				clearTimeout( instance.checkmarkTimeout );
+				instance.checkmarkTimeout = setTimeout( function() {
+						classie.remove( instance.el, 'drop-feedback' );
+				}, 800 );
+				// ...
+			}
+		} ) );
+	} );
+
+	// initialize draggable(s)
+	[].slice.call(document.querySelectorAll( '#grid .grid__item' )).forEach( function( el ) {
+		new Draggable( el, droppableArr, {
+			draggabilly : { containment: document.body },
+			onStart : function() {
+				// add class 'drag-active' to body
+				classie.add( body, 'drag-active' );
+				// clear timeout: dropAreaTimeout (toggle drop area)
+				clearTimeout( dropAreaTimeout );
+				// show dropArea
+				classie.add( dropArea, 'show' );
+			},
+			onEnd : function( wasDropped ) {
+				var afterDropFn = function() {
+					// hide dropArea
+					classie.remove( dropArea, 'show' );
+					// remove class 'drag-active' from body
+					classie.remove( body, 'drag-active' );
+				};
+
+				if( !wasDropped ) {
+					afterDropFn();
 				}
-			} ) );
-		} );
-
-		// initialize draggable(s)
-		[].slice.call(document.querySelectorAll( '#grid .grid__item' )).forEach( function( el ) {
-			new Draggable( el, droppableArr, {
-				draggabilly : { containment: document.body },
-				onStart : function() {
-					// add class 'drag-active' to body
-					classie.add( body, 'drag-active' );
-					// clear timeout: dropAreaTimeout (toggle drop area)
+				else {
+					// after some time hide drop area and remove class 'drag-active' from body
 					clearTimeout( dropAreaTimeout );
-					// show dropArea
-					classie.add( dropArea, 'show' );
-				},
-				onEnd : function( wasDropped ) {
-					var afterDropFn = function() {
-						// hide dropArea
-						classie.remove( dropArea, 'show' );
-						// remove class 'drag-active' from body
-						classie.remove( body, 'drag-active' );
-					};
-
-					if( !wasDropped ) {
-						afterDropFn();
-					}
-					else {
-						// after some time hide drop area and remove class 'drag-active' from body
-						clearTimeout( dropAreaTimeout );
-						dropAreaTimeout = setTimeout( afterDropFn, 400 );
-					}
+					dropAreaTimeout = setTimeout( afterDropFn, 400 );
 				}
-			} );
+			}
 		} );
-	};
-});
+	} );
+};
