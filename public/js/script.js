@@ -44,47 +44,47 @@ function getFiles(path) {
 	});
 
 	function addFile(file) {
-		var type = getType();
+		var type = getType(file.name);
 		var icon = '<i class="fa fa-fw fa-file-' + getIcon(type) + '"></i>';
 		var card = '<div g="column"><a href="' + file.url + '" download><div class="grid__item ' + type + '">' + icon + '</div><label>' + file.name + '</label></a><span style="font-size: 0.7em">' + file.timeSincePosted + '</span></div>';
 		if (file.hasThumbnail) {
 			card = '<div g="column"><a href="' + file.url + '" download><div class="grid__item grid_photo ' + type + '" style="background-image: url(' + file.url + ')"></div><label>' + file.name + '</label></a><span style="font-size: 0.7em">' + file.timeSincePosted + '</span></div>';
 		}
         $('#grid').append(card);
-
-		function getType() {
-			var d = file.name.lastIndexOf('.');
-			if (d < 0) return 'unknown';
-			var ext = file.name.substring(d+1).toLowerCase();
-			//make sure to return fontawesome classnames
-			if (['png','jpg','jpeg','gif'].indexOf(ext) >= 0) return 'image';
-			if (['mp3','flac','ogg','wav'].indexOf(ext) >= 0) return 'audio';
-			if (['pdf'].indexOf(ext) >= 0) return 'pdf';
-			if (['txt','doc','docx'].indexOf(ext) >= 0) return 'text';
-			return ext;
-		}
-
-		function getIcon(type) {
-			//first line is for fontawesome classnames
-			if (['image', 'audio', 'text', 'pdf'].indexOf(type) >= 0) return type + '-o';
-			return 'o';
-		}
 	}
+}
 
-	function timeSince(date) {
-		var seconds = Math.floor((new Date() - date) / 1000);
-		var interval = Math.floor(seconds / 31536000);
-		if (interval > 1) return interval + " years ago";
-		interval = Math.floor(seconds / 2592000);
-		if (interval > 1) return interval + " months ago";
-		interval = Math.floor(seconds / 86400);
-		if (interval > 1) return interval + " days ago";
-		interval = Math.floor(seconds / 3600);
-		if (interval > 1) return interval + " hours ago";
-		interval = Math.floor(seconds / 60);
-		if (interval > 1) return interval + " minutes ago";
-		return Math.floor(seconds) + " seconds ago";
-	}
+function getType(name) {
+	var d = name.lastIndexOf('.');
+	if (d < 0) return 'unknown';
+	var ext = name.substring(d+1).toLowerCase();
+	//make sure to return fontawesome classnames
+	if (['png','jpg','jpeg','gif'].indexOf(ext) >= 0) return 'image';
+	if (['mp3','flac','ogg','wav'].indexOf(ext) >= 0) return 'audio';
+	if (['pdf'].indexOf(ext) >= 0) return 'pdf';
+	if (['txt','doc','docx'].indexOf(ext) >= 0) return 'text';
+	return ext;
+}
+
+function getIcon(type) {
+	//first line is for fontawesome classnames
+	if (['image', 'audio', 'text', 'pdf'].indexOf(type) >= 0) return type + '-o';
+	return 'o';
+}
+
+function timeSince(date) {
+	var seconds = Math.floor((new Date() - date) / 1000);
+	var interval = Math.floor(seconds / 31536000);
+	if (interval > 1) return interval + " years ago";
+	interval = Math.floor(seconds / 2592000);
+	if (interval > 1) return interval + " months ago";
+	interval = Math.floor(seconds / 86400);
+	if (interval > 1) return interval + " days ago";
+	interval = Math.floor(seconds / 3600);
+	if (interval > 1) return interval + " hours ago";
+	interval = Math.floor(seconds / 60);
+	if (interval > 1) return interval + " minutes ago";
+	return Math.floor(seconds) + " seconds ago";
 }
 
 function initGrid() {

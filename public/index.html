@@ -126,35 +126,18 @@
 
             	var name = resp.items[i].title;
             	var url = resp.items[i].thumbnailLink;
-            	// var createdDate = Date.parse(resp.items[i].createdDate);
-            	// console.log(createdDate);
+            	var createdDate = Date.parse(resp.items[i].createdDate);
+            	createdDate = timeSince(createdDate);
+            	console.log(createdDate);
             	var icon = '<i class="fa fa-fw fa-file-' + getIcon(getType(name)) + '"></i>';
             	if (url) icon = '';
-        		var card = '<div g="column"><a href="' + url + '" download><div class="grid__item grid_photo ' + '" style="background-image: url(' + url + ')">' + icon + '</div><label>' + name + '</label></a><span style="font-size: 0.7em">' + "Just posted" + '</span></div>';
+        		var card = '<div g="column"><a href="' + url + '" download><div class="grid__item grid_photo ' + '" style="background-image: url(' + url + ')">' + icon + '</div><label>' + name + '</label></a><span style="font-size: 0.7em">' + createdDate + '</span></div>';
     			$('#grid').append(card);
             	//var dateCreated = resp.items[i].createdDate;
             	//var date = timeSince(dateCreated);
 
             }
-          });
-
-			function getType(name) {
-				var d = name.lastIndexOf('.');
-				if (d < 0) return 'unknown';
-				var ext = name.substring(d+1).toLowerCase();
-				//make sure to return fontawesome classnames
-				if (['png','jpg','jpeg','gif'].indexOf(ext) >= 0) return 'image';
-				if (['mp3','flac','ogg','wav'].indexOf(ext) >= 0) return 'audio';
-				if (['pdf'].indexOf(ext) >= 0) return 'pdf';
-				if (['txt','doc','docx'].indexOf(ext) >= 0) return 'text';
-				return ext;
-			}
-
-			function getIcon(type) {
-				//first line is for fontawesome classnames
-				if (['image', 'audio', 'text', 'pdf'].indexOf(type) >= 0) return type + '-o';
-				return 'o';
-			}        
+          });      
         });
       }
 
