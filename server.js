@@ -19,33 +19,34 @@ function getFiles(callback) {
 		if (error) return showError(error);
 
 		console.log('successful authentication:');
+
 		client.getAccountInfo(function (error, data) {
 			if (error) return showError(error);
-			console.log(data.email);
+			var client_data = data;
+			client.readdir('/', function (error, entries, folder_data, file_data) {
+				if (error) return showError(error);
+
+				callback(file_data, client_data);
+			});
+
 		});
 
         // readdir won't print test.txt because this isn't properly chained up with Promises but submitFile does work.
         //submitFile("files/test.txt");
 
-		client.readdir('/', function (error, entries, folder_data, file_data) {
-			if (error) return showError(error);
-
-			callback(file_data);
-		});
+	
 
 	});
 }
 
-function reply(res, clientFiles) {
+function replyFiles(res, clientFiles) {
 	console.log(clientFiles);
 	res.json(clientFiles);
-}
+} 
 
 function copyDropboxData(curServerFile, curFile, callback) {
 
 	var file_url;
-
-	console.log(curServerFile.path);
 
 	client.makeUrl(curServerFile.path, {downloadHack: true}, function (error, file_data) {
 		file_url = file_data.url;
@@ -53,9 +54,38 @@ function copyDropboxData(curServerFile, curFile, callback) {
 		if(curServerFile.hasThumbnail) {
 			curFile.hasThumbnail = true;
 		}
+		curFile.timeSincePosted = timeSince(Date.parse(curServerFile.modifiedAt));
 		callback();
 	});	
 
+}
+
+function timeSince(date) {
+
+    var seconds = Math.floor((new Date() - date) / 1000);
+
+    var interval = Math.floor(seconds / 31536000);
+
+    if (interval > 1) {
+        return interval + " years ago";
+    }
+    interval = Math.floor(seconds / 2592000);
+    if (interval > 1) {
+        return interval + " months ago";
+    }
+    interval = Math.floor(seconds / 86400);
+    if (interval > 1) {
+        return interval + " days ago";
+    }
+    interval = Math.floor(seconds / 3600);
+    if (interval > 1) {
+        return interval + " hours ago";
+    }
+    interval = Math.floor(seconds / 60);
+    if (interval > 1) {
+        return interval + " minutes ago";
+    }
+    return Math.floor(seconds) + " seconds ago";
 }
 
 app.get('/files', function (req, res) {
@@ -96,15 +126,17 @@ app.get('/files', function (req, res) {
 	// Client files is the JSON object we send to the client, files is the JSON object from dropbox api
 	var clientFiles = [];
 
-	getFiles(function (files) {
+	getFiles(function (files, client_data) {
+	
 		var outstandingUrls = files.length;
+		
 		for(var i = 0; i < files.length; i++) {
 			clientFiles.push({
 				name: files[i].name,
 				url: null,
-				hasThumbnail: false
+				hasThumbnail: false,
+				timeSincePosted: null
 			});
-
 
 			var curFile = clientFiles[i];
 			var curServerFile = files[i];
@@ -113,10 +145,11 @@ app.get('/files', function (req, res) {
 				outstandingUrls--;
 
 				if(outstandingUrls === 0) {
-					reply(res, clientFiles);
+					replyFiles(res, clientFiles);
 				}				
 			});
 		}
+
 	});
 
 });
