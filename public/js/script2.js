@@ -5,7 +5,6 @@ $(document).ready(function () {
     	getFiles();
     } else {
 		client.authenticate(function (error, client) {
-			console.log(client);
 	        if (error) {
 	        	console.log('Error: ' + error);
 	        	return;
@@ -17,14 +16,15 @@ $(document).ready(function () {
 
 function getFiles() {
 	client.readdir('/', function (error, entries, folder_data, file_data) {
-		console.log(entries);
-		file_data.map(function (file) {
-			// client.makeUrl(file.path, {downloadHack: true}, function (error, file_data) {
-			// 	file.url = file_data.url;
-			// });
-			return file;
-		}).forEach(addFile);
-		initGrid();
+		var i = file_data.length;
+		file_data.forEach(function (file) {
+			client.makeUrl(file.path, {downloadHack: true}, function (error, file_data) {
+				file.url = file_data.url;
+				addFile(file);
+				i--;
+				if (i === 0) initGrid();
+			});
+		});
 	});
 
 	function addFile(file) {
@@ -33,7 +33,7 @@ function getFiles() {
 		var card = '<div g="column"><div class="grid__item ' + type + '"></div><a href="' + file.url + '" download><label>' + icon + file.name + '</label></a><span style="font-size: 0.7em">1 Min ago</span></div>';
 		if (file.hasThumbnail) {
 			icon = '';
-			card = '<div g="column"><div class="grid__item grid_photo ' + type + '" style="background-image: url(' + file.path + ')">' + icon + '</div><a href="' + file.url + '" download><label>' + file.name + '</label></a></div>';
+			card = '<div g="column"><div class="grid__item grid_photo ' + type + '" style="background-image: url(' + file.url + ')">' + icon + '</div><a href="' + file.url + '" download><label>' + file.name + '</label></a></div>';
 		}
         $('#grid').append(card);
 
