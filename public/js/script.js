@@ -191,6 +191,7 @@ function renderImage(file) {
 	//when the file is read it triggers the onload event above.
     reader.readAsArrayBuffer(file);
     reader.onload = function(event) {
+    	console.log(event);
         var url = event.target.result;
 		var card = '<div g="column"><div class="grid__item grid_photo ' + "jpeg" + '" style="background-image: url(' + url + ')">' + '</div><a href="' + url + '" download><label>' + file.name + '</label></a><span style="font-size: 0.7em">' + "Just posted" + '</span></div>';
 		$('#grid').append(card);
