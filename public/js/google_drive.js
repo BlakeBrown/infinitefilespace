@@ -14,20 +14,21 @@ function checkAuth() {
 }
 
 function handleAuthResult(authResult) {
-	var authorizeButton = document.getElementById('authorize-button');
+	var authorizeButton = document.getElementById('add_account_btn');
 	if (authResult && !authResult.error) {
 		authorizeButton.style.visibility = 'hidden';
 		makeApiCall();
 	} else {
 		authorizeButton.style.visibility = '';
-		authorizeButton.onclick = handleAuthClick;
 	}
 }
 
-function handleAuthClick(event) {
-	gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);
-	return false;
-}
+$("#add_account_btn").on("click", function(e) {
+	e.preventDefault();
+	$("#add_account_modal").show();
+	//Authorize with google drive
+	//gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);
+});
 
 // Load the API and make an API call.  Display the results on the screen.
 function makeApiCall() {
@@ -46,10 +47,10 @@ function makeApiCall() {
 				if (url) icon = '';
 				console.log(url);
 				if(url!='undefined') {        		
-					var card = '<div g="column"><a href="' + url + '" download><div class="grid__item grid_photo image' + '" style="background-image: url(' + url + ')">' + icon + '</div><label>' + name + '</label></a><span style="font-size: 0.7em">' + createdDate + '</span></div>';
+					var card = '<div g="column"><a href="' + url + '" download><div class="grid_item grid_photo image' + '" style="background-image: url(' + url + ')">' + icon + '</div><label>' + name + '</label></a><span style="font-size: 0.7em">' + createdDate + '</span></div>';
 					$('#grid').append(card);
 				} else {
-					var card = '<div g="column"><a href="' + url + '" download><div class="grid__item grid_photo' + '" style="background-image: url(' + url + ')">' + icon + '</div><label>' + name + '</label></a><span style="font-size: 0.7em">' + createdDate + '</span></div>';
+					var card = '<div g="column"><a href="' + url + '" download><div class="grid_item grid_photo' + '" style="background-image: url(' + url + ')">' + icon + '</div><label>' + name + '</label></a><span style="font-size: 0.7em">' + createdDate + '</span></div>';
 					$('#grid').append(card);
 				}
 				//var dateCreated = resp.items[i].createdDate;
@@ -79,7 +80,7 @@ function initGrid() {
 		} ) );
 	} );
 
-	[].slice.call(document.querySelectorAll( '#grid .grid__item' )).forEach( function( el ) {
+	[].slice.call(document.querySelectorAll( '#grid .grid_item' )).forEach( function( el ) {
 		new Draggable( el, droppableArr, {
 			draggabilly : { containment: document.body },
 			onStart : function() {

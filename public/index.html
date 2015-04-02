@@ -9,44 +9,44 @@
 	<link rel="stylesheet" type="text/css" href="css/normalize.css" />
 	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.2.0/css/font-awesome.min.css" />
 	<link rel="stylesheet" type="text/css" href="css/modal.css" />
-	<link rel="stylesheet" href="galaxy/galaxy.css">
+	<link rel="stylesheet" type="text/css" href="css/home_page.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-corner-indicator.css">
 
 
 </head>
 
 <body ondragstart="return false">
-	<div g="centered xlg-container">
-		<section g="centered">
-			<aside g="column lg-padding-t xlg-padding-lr">
-				<h3><span class="logo"></span>Filespace</h3>
-				<button id="upload"><i class="fa fa-upload"></i></button>
-				<input id="upload_file" type="file" style="display:none">
-				<ul style="list-style-type: none" g="left">
+	<div class="container">
+		<div class="col-md-2">
+			<h1>Filespace</h1>
+			<button id="upload_file_btn" class="btn btn-info"><i class="fa fa-upload"></i></button>
+			<input id="upload_file" type="file" style="display:none">
+			<ul id="header_list" style="list-style-type: none">
 
-					<li id="list_files"><img src="iconic/svg/file.svg" class="menu-icon">Files</li>
-					<li id="list_photos"><img src="iconic/svg/image.svg" class="menu-icon">Photos</li>
-					<li id="sharing_link"><img src="iconic/svg/share.svg" class="menu-icon">Sharing</li>
-					<hr style="margin: .5em 0">
-					<li><a id="authorize-button" style="visibility: hidden">Add account <i class="fa fa-plus"></i></a></li>
-					
-				</ul>
-				<ul style="padding-top: 76px;">
-					<span style="font-size: .9em; color: rgba(103, 103, 103, 0.39)"><span id="used_data">23MB</span>/ <span class="total_data">4112MB</span></span>
-					<div style="height: .3em; background: #000; width: 100%;"></div>
-				</ul>
-			</aside>
-			<div g="column" id="before_grid">
-				<img src="https://s.gravatar.com/avatar/ddd0766bc90ec946f29d32589836cf2c?s=80" width="50" style="position: absolute; right: 1em; top: 3em; width: 50px; height: 50px; border-radius: 50%; cursor: pointer" id="trigger-overlay">
-				<header g="left lg-margin-t" class="banner">
-					<h4>Home</h4>
-				</header>
-				<hr>
-				<section id="grid" class="grid clearfix" g="between"></section>
-			</div>
+				<li id="list_files">
+					<i class="fa fa-file-o"></i> Files
+				</li>
+				<li id="list_photos">
+					<i class="fa fa-file-image-o"></i> Photos
+				</li>
+				<li id="sharing_link">
+					<i class="fa fa-mail-forward"></i> Sharing
+				</li>
+				<hr style="margin: .5em 0">
+				<li><a id="add_account_btn" style="visibility: hidden">Add account <i class="fa fa-plus"></i></a></li>
+				
+			</ul>
+			<ul style="padding-top: 76px;">
+				<span style="font-size: .9em; color: rgba(103, 103, 103, 0.39)"><span id="used_data">23MB</span>/ <span class="total_data">4112MB</span></span>
+				<div style="height: .3em; background: #000; width: 100%;"></div>
+			</ul>
+		</div>
+		<div class="col-md-10">
+			<section id="grid" class="grid clearfix" g="between"></section>
+		</div>
 
-		</section>
-
+	
 
 		<div id="drop-area" class="drop-area">
 			<div class="drop-area__item"></div>
@@ -55,15 +55,6 @@
 
 		<div class="drop-overlay"></div>
 	</div>
-	<div class="overlay overlay-hugeinc">
-	<button type="button" class="overlay-close">Close</button>
-	<nav>
-		<form action="">
-			<input type="text" placeholder="Your email" g="4 centered">
-			<input type="password" placeholder="Your password" g="4 centered">
-			<button g="primary 4 centered">Add account</button>
-		</form>
-	</nav>
 </div>
 	<!-- <div id="add_accounts">
 		<form action="">
@@ -75,11 +66,11 @@
 	</div> -->
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	<script src="http://devble.com/examples/fullscreen-menu/modernizr.custom.js"></script>
 	<script src="http://devble.com/examples/fullscreen-menu/classie.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
 	<script src="https://www.dropbox.com/static/api/dropbox-datastores-1.0-latest.js"></script>
-	
 	<script src="js/script.js"></script>
 	<script src="js/draggabilly.pkgd.min.js"></script>
 	<script src="js/dragdrop.js"></script>

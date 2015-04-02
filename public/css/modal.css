@@ -3,7 +3,7 @@
 	color: #4293C2;
 }
 
-.grid__item {
+.grid_item {
 	padding-top: 1.5em;
 	padding-left: 1.5em;
 	margin:0 auto;
@@ -14,17 +14,6 @@
 	background: #f4a8a8;
 	color: #fff;
 	box-shadow: 0 1px 1px 0 rgba(0,0,0,.2);
-}
-
-.grid_photo {
-	background-size: cover !important;
-	background-repeat: no-repeat;
-	transition: opacity 0.4s;
-}
-
-.grid_photo:hover {
-	cursor: pointer;
-	opacity: 0.8;
 }
 
 label:hover {
@@ -166,7 +155,7 @@ label:hover {
 }
 
 @media screen and (max-width: 50em) {
-	.grid__item {
+	.grid_item {
 		font-size: 1.5em;
 	}
 	.drop-area {
@@ -178,7 +167,10 @@ label:hover {
 	.grid {
 		padding: 0 2em;
 	}
-	.grid__item {
+	.grid_item {
 		font-size: 1em;
 	}
+}
+#header_list {
+	padding-left: 0px;
 }

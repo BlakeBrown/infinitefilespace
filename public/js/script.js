@@ -46,9 +46,26 @@ function getFiles(path) {
 	function addFile(file) {
 		var type = getType(file.name);
 		var icon = '<i class="fa fa-fw fa-file-' + getIcon(type) + '"></i>';
-		var card = '<div g="column"><a href="' + file.url + '" download><div class="grid__item ' + type + '">' + icon + '</div><label>' + file.name + '</label></a><span style="font-size: 0.7em">' + file.timeSincePosted + '</span></div>';
+		console.log(file);
+		var card = '<div class="col-md-3 grid_item_container">\
+						<a href="' + file.url + '" download>\
+							<div class="grid_item ' + type + '">' + icon + '</div>\
+							<br>\
+							<label>' + file.name + '</label>\
+						</a>\
+						<br>\
+						<span style="font-size: 0.7em">' + file.timeSincePosted + '</span>\
+					</div>';
 		if (file.hasThumbnail) {
-			card = '<div g="column"><a href="' + file.url + '" download><div class="grid__item grid_photo ' + type + '" style="background-image: url(' + file.url + ')"></div><label>' + file.name + '</label></a><span style="font-size: 0.7em">' + file.timeSincePosted + '</span></div>';
+			card = '<div class="col-md-3 grid_item_container">\
+						<a href="' + file.url + '" download>\
+							<div class="grid_item grid_photo ' + type + '" style="background-image: url(' + file.url + ')"></div>\
+							<br>\
+							<label>' + file.name + '</label>\
+						</a>\
+						<br>\
+						<span style="font-size: 0.7em">' + file.timeSincePosted + '</span>\
+					</div>';
 		}
         $('#grid').append(card);
 	}
@@ -106,7 +123,7 @@ function initGrid() {
 		} ) );
 	} );
 
-	[].slice.call(document.querySelectorAll( '#grid .grid__item' )).forEach( function( el ) {
+	[].slice.call(document.querySelectorAll( '#grid .grid_item' )).forEach( function( el ) {
 		new Draggable( el, droppableArr, {
 			draggabilly : { containment: document.body },
 			onStart : function() {
@@ -130,7 +147,7 @@ function initGrid() {
 				}
 				else {
 					// after some time hide drop area and remove class 'drag-active' from body
-					console.log($(".drag-active").closest(".grid__item").find("a").attr('href'));
+					console.log($(".drag-active").closest(".grid_item").find("a").attr('href'));
 					clearTimeout( dropAreaTimeout );
 					dropAreaTimeout = setTimeout( afterDropFn, 400 );
 				}
@@ -140,50 +157,9 @@ function initGrid() {
 }
 
 
-$(".grid__item").on("click", function() {
+$(".grid_item").on("click", function() {
 	console.log($(this).find("a"));
 });
-
-(function() {
-	var triggerBttn = document.getElementById( 'trigger-overlay' ),
-		overlay = document.querySelector( 'div.overlay' ),
-		closeBttn = overlay.querySelector( 'button.overlay-close' );
-		transEndEventNames = {
-			'WebkitTransition': 'webkitTransitionEnd',
-			'MozTransition': 'transitionend',
-			'OTransition': 'oTransitionEnd',
-			'msTransition': 'MSTransitionEnd',
-			'transition': 'transitionend'
-		},
-		transEndEventName = transEndEventNames[ Modernizr.prefixed( 'transition' ) ],
-		support = { transitions : Modernizr.csstransitions };
-
-	function toggleOverlay() {
-		if( classie.has( overlay, 'open' ) ) {
-			classie.remove( overlay, 'open' );
-			classie.add( overlay, 'close' );
-			var onEndTransitionFn = function( ev ) {
-				if( support.transitions ) {
-					if( ev.propertyName !== 'visibility' ) return;
-					this.removeEventListener( transEndEventName, onEndTransitionFn );
-				}
-				classie.remove( overlay, 'close' );
-			};
-			if( support.transitions ) {
-				overlay.addEventListener( transEndEventName, onEndTransitionFn );
-			}
-			else {
-				onEndTransitionFn();
-			}
-		}
-		else if( !classie.has( overlay, 'close' ) ) {
-			classie.add( overlay, 'open' );
-		}
-	}
-
-	triggerBttn.addEventListener( 'click', toggleOverlay );
-	closeBttn.addEventListener( 'click', toggleOverlay );
-})();
 
 // Uploads a file to dropbox and appends it to the DOM
 function uploadFileToDropbox(file) {
@@ -193,7 +169,7 @@ function uploadFileToDropbox(file) {
     reader.onload = function(event) {
 
         var url = event.target.result;
-		var card = '<div g="column"><div class="grid__item grid_photo ' + "jpeg" + '" style="background-image: url(' + url + ')">' + '</div><a href="' + url + '" download><label>' + file.name + '</label></a><span style="font-size: 0.7em">' + "Just posted" + '</span></div>';
+		var card = '<div g="column"><div class="grid_item grid_photo ' + "jpeg" + '" style="background-image: url(' + url + ')">' + '</div><a href="' + url + '" download><label>' + file.name + '</label></a><span style="font-size: 0.7em">' + "Just posted" + '</span></div>';
 		$('#grid').append(card);
 
 		client.writeFile(file.name, file, function (error, stat) {
@@ -202,7 +178,7 @@ function uploadFileToDropbox(file) {
     }
 }
 
-$("#upload").on("click", function() {
+$("#upload_file_btn").on("click", function() {
 	$("#upload_file").click();
 });
 
@@ -211,7 +187,7 @@ $("#upload_file").change(function() {
 });
 
 $("#list_photos").on("click", function() {
-	var items = $(".grid__item");
+	var items = $(".grid_item");
 	for (var i = 0; i < items.length; i++) {
 		if(!$(items[i]).hasClass("image")) {
 			$(items[i]).closest('[g~="column"]').hide(500);
@@ -222,7 +198,7 @@ $("#list_photos").on("click", function() {
 });
 
 $("#list_files").on("click", function() {
-	var items = $(".grid__item");
+	var items = $(".grid_item");
 	for (var i = 0; i < items.length; i++) {
 		if(!$(items[i]).hasClass("image")) {
 			$(items[i]).closest('[g~="column"]').show(500);

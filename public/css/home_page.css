@@ -1,0 +1,20 @@
+#header_list {
+	padding-left: 0px;
+}
+#upload_file_btn {
+	padding: 10px 60px;
+}
+.grid_photo {
+	width: 100%;
+  	height: 130px;
+	background-size: cover !important;
+	background-repeat: no-repeat;
+	transition: opacity 0.4s;
+}
+.grid_photo:hover {
+	cursor: pointer;
+	opacity: 0.8;
+}
+.grid_item_container {
+	text-align: center;
+}
