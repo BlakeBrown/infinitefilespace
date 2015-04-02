@@ -185,21 +185,18 @@ $(".grid__item").on("click", function() {
 	closeBttn.addEventListener( 'click', toggleOverlay );
 })();
 
-//this function is called when the input loads a video
-function renderImage(file) {
+// Uploads a file to dropbox and appends it to the DOM
+function uploadFileToDropbox(file) {
     var reader = new FileReader();
-	//when the file is read it triggers the onload event above.
-    reader.readAsArrayBuffer(file);
+	//readAsDataURL triggers the onload event 
+    reader.readAsDataURL(file);
     reader.onload = function(event) {
-    	console.log(event);
+
         var url = event.target.result;
 		var card = '<div g="column"><div class="grid__item grid_photo ' + "jpeg" + '" style="background-image: url(' + url + ')">' + '</div><a href="' + url + '" download><label>' + file.name + '</label></a><span style="font-size: 0.7em">' + "Just posted" + '</span></div>';
 		$('#grid').append(card);
-		var data = { 
-			url: reader.result,
-			name: file.name
-		};
-		client.writeFile(data.name, data.url, function (error, stat) {
+
+		client.writeFile(file.name, file, function (error, stat) {
 			console.log(error);
 		});
     }
@@ -210,7 +207,7 @@ $("#upload").on("click", function() {
 });
 
 $("#upload_file").change(function() {
-	renderImage(this.files[0]);
+	uploadFileToDropbox(this.files[0]);
 });
 
 $("#list_photos").on("click", function() {
