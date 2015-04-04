@@ -1,8 +1,24 @@
+#site_header_1 {
+	font-family: 'Open Sans', sans-serif;
+	margin-bottom: 0;
+	margin-top: 30px;
+}
+#site_header_2 {
+	font-family: 'Roboto Slab', serif;
+	margin-top: 0;
+}
 #header_list {
 	padding-left: 0;
+	font-size: 18px;
+}
+#header_list li {
+	margin: 10px 0;
 }
 #upload_file_btn {
 	padding: 10px 60px;
+}
+#grid {
+	margin-top: 137px;
 }
 .grid_item {
 	padding-top: 1.5em;

@@ -16,7 +16,7 @@ function checkAuth() {
 function handleAuthResult(authResult) {
 	var authorizeButton = document.getElementById('add_account_btn');
 	if (authResult && !authResult.error) {
-		authorizeButton.style.visibility = 'hidden';
+		//authorizeButton.style.visibility = 'hidden';
 		makeApiCall();
 	} else {
 		authorizeButton.style.visibility = '';
@@ -27,7 +27,7 @@ $("#add_account_btn").on("click", function(e) {
 	e.preventDefault();
 	$("#add_account_modal").show();
 	//Authorize with google drive
-	gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);
+	//gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);
 });
 
 // Load the API and make an API call.  Display the results on the screen.
@@ -48,7 +48,7 @@ function makeApiCall() {
 				}
 				var icon = '<i class="fa fa-fw fa-file-' + getIcon(getType(name)) + '"></i>';
 				if (url) icon = '';
-				console.log(url);
+
 				if(url) {   
 					card = '<div class="col-md-3 grid_item_container">\
 								<a href="' + url + '" download>\

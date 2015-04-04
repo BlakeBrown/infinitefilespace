@@ -6,6 +6,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Filespace</title>
 	<link rel="shortcut icon" href="../favicon.ico">
+	<link href='http://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="css/normalize.css" />
 	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.2.0/css/font-awesome.min.css" />
 	<link rel="stylesheet" type="text/css" href="css/modal.css" />
@@ -19,7 +21,8 @@
 <body ondragstart="return false">
 	<div class="container">
 		<div class="col-md-2">
-			<h1>Filespace</h1>
+			<h4 id="site_header_1" style="font-family:'Open Sans', sans-serif;">infinite</h4>
+			<h1 id="site_header_2" style="font-family:'Roboto Slab', serif;">Filespace</h1>
 			<button id="upload_file_btn" class="btn btn-info"><i class="fa fa-upload"></i></button>
 			<input id="upload_file" type="file" style="display:none">
 			<ul id="header_list" style="list-style-type: none">
@@ -34,19 +37,15 @@
 					<i class="fa fa-mail-forward"></i> Sharing
 				</li>
 				<hr style="margin: .5em 0">
-				<li><a id="add_account_btn" style="visibility: hidden">Add account <i class="fa fa-plus"></i></a></li>
+				<li><a id="add_account_btn">Add account <i class="fa fa-plus"></i></a></li>
 				
 			</ul>
-			<ul style="padding-top: 76px;">
-				<span style="font-size: .9em; color: rgba(103, 103, 103, 0.39)"><span id="used_data">23MB</span>/ <span class="total_data">4112MB</span></span>
-				<div style="height: .3em; background: #000; width: 100%;"></div>
-			</ul>
+			<span style="font-size: .9em; color: rgba(103, 103, 103, 0.39)"><span id="used_data">23MB</span>/ <span class="total_data">4112MB</span></span>
+			<div style="height: .3em; background: #000; width: 100%;"></div>
 		</div>
 		<div class="col-md-10">
-			<section id="grid" class="grid clearfix" g="between"></section>
+			<section id="grid"></section>
 		</div>
-
-	
 
 		<div id="drop-area" class="drop-area">
 			<div class="drop-area__item"></div>
