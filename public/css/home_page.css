@@ -1,5 +1,5 @@
 #header_list {
-	padding-left: 0px;
+	padding-left: 0;
 }
 #upload_file_btn {
 	padding: 10px 60px;
@@ -17,4 +17,9 @@
 }
 .grid_item_container {
 	text-align: center;
+	height: 230px;
+}
+#add_account_btn:hover {
+	text-decoration: none;
+	cursor: pointer;
 }

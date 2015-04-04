@@ -27,7 +27,7 @@ $("#add_account_btn").on("click", function(e) {
 	e.preventDefault();
 	$("#add_account_modal").show();
 	//Authorize with google drive
-	//gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);
+	gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);
 });
 
 // Load the API and make an API call.  Display the results on the screen.
@@ -43,14 +43,33 @@ function makeApiCall() {
 				var url = resp.items[i].thumbnailLink;
 				var createdDate = Date.parse(resp.items[i].createdDate);
 				createdDate = timeSince(createdDate);
+				if(name.length > 40) {
+					name = name.substr(0, 40) + "...";
+				}
 				var icon = '<i class="fa fa-fw fa-file-' + getIcon(getType(name)) + '"></i>';
 				if (url) icon = '';
 				console.log(url);
-				if(url!='undefined') {        		
-					var card = '<div g="column"><a href="' + url + '" download><div class="grid_item grid_photo image' + '" style="background-image: url(' + url + ')">' + icon + '</div><label>' + name + '</label></a><span style="font-size: 0.7em">' + createdDate + '</span></div>';
+				if(url!='undefined') {   
+					card = '<div class="col-md-3 grid_item_container">\
+								<a href="' + url + '" download>\
+									<div class="grid_item grid_photo" style="background-image: url(' + url + ')"></div>\
+									<br>\
+									<label>' + name + '</label>\
+								</a>\
+								<br>\
+								<span style="font-size: 0.7em">' + createdDate + '</span>\
+							</div>';
 					$('#grid').append(card);
 				} else {
-					var card = '<div g="column"><a href="' + url + '" download><div class="grid_item grid_photo' + '" style="background-image: url(' + url + ')">' + icon + '</div><label>' + name + '</label></a><span style="font-size: 0.7em">' + createdDate + '</span></div>';
+					var card = '<div class="col-md-3 grid_item_container">\
+									<a href="' + url + '" download>\
+										<div class="grid_item">' + icon + '</div>\
+										<br>\
+										<label>' + name+ '</label>\
+									</a>\
+									<br>\
+									<span style="font-size: 0.7em">' + createdDate + '</span>\
+								</div>'; 
 					$('#grid').append(card);
 				}
 				//var dateCreated = resp.items[i].createdDate;

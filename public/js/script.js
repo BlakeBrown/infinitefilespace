@@ -46,12 +46,15 @@ function getFiles(path) {
 	function addFile(file) {
 		var type = getType(file.name);
 		var icon = '<i class="fa fa-fw fa-file-' + getIcon(type) + '"></i>';
-		console.log(file);
+		var name = file.name
+		if(name.length > 40) {
+			name = name.substr(0, 40) + "...";
+		}
 		var card = '<div class="col-md-3 grid_item_container">\
 						<a href="' + file.url + '" download>\
 							<div class="grid_item ' + type + '">' + icon + '</div>\
 							<br>\
-							<label>' + file.name + '</label>\
+							<label>' + name+ '</label>\
 						</a>\
 						<br>\
 						<span style="font-size: 0.7em">' + file.timeSincePosted + '</span>\
@@ -61,7 +64,7 @@ function getFiles(path) {
 						<a href="' + file.url + '" download>\
 							<div class="grid_item grid_photo ' + type + '" style="background-image: url(' + file.url + ')"></div>\
 							<br>\
-							<label>' + file.name + '</label>\
+							<label>' + name + '</label>\
 						</a>\
 						<br>\
 						<span style="font-size: 0.7em">' + file.timeSincePosted + '</span>\
