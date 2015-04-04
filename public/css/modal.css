@@ -3,19 +3,6 @@
 	color: #4293C2;
 }
 
-.grid_item {
-	padding-top: 1.5em;
-	padding-left: 1.5em;
-	margin:0 auto;
-	width: 4em;
-	height: 3.5em;
-	font-size: 2em;
-	border-radius: 4px;
-	background: #f4a8a8;
-	color: #fff;
-	box-shadow: 0 1px 1px 0 rgba(0,0,0,.2);
-}
-
 label:hover {
 	cursor: pointer !important;
 }

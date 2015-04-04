@@ -49,7 +49,7 @@ function makeApiCall() {
 				var icon = '<i class="fa fa-fw fa-file-' + getIcon(getType(name)) + '"></i>';
 				if (url) icon = '';
 				console.log(url);
-				if(url!='undefined') {   
+				if(url) {   
 					card = '<div class="col-md-3 grid_item_container">\
 								<a href="' + url + '" download>\
 									<div class="grid_item grid_photo" style="background-image: url(' + url + ')"></div>\
