@@ -1,4 +1,7 @@
 (function() {
+
+	//=== Code from Codrops, adds filled class to prevent search text from falling back down if input is filled ===
+
 	// trim polyfill : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
 	if (!String.prototype.trim) {
 		(function() {
@@ -30,4 +33,19 @@
 			classie.remove( ev.target.parentNode, 'input--filled' );
 		}
 	}
+
+	///=== End of Codrops code ===
+
+	// Searching functionality
+	$("#search_bar_input").on("keyup", function(e) {
+		
+		$(".file_name").each(function() {
+			$(this).closest(".grid_item_container").css("display", "none");
+			if($(this).text().toLowerCase().indexOf($("#search_bar_input").val().toLowerCase()) >= 0) {
+				$(this).closest(".grid_item_container").css("display", "block");
+			}
+		});
+		
+	});
+
 })();

@@ -50,7 +50,7 @@ function makeApiCall() {
 								<a href="' + url + '" download>\
 									<div class="grid_item grid_photo" style="background-image: url(' + url + ')"></div>\
 									<br>\
-									<label>' + name + '</label>\
+									<label class="file_name">' + name + '</label>\
 								</a>\
 								<br>\
 								<span style="font-size: 0.7em">' + createdDate + '</span>\
@@ -61,13 +61,14 @@ function makeApiCall() {
 									<a href="' + url + '" download>\
 										<div class="grid_item">' + icon + '</div>\
 										<br>\
-										<label>' + name+ '</label>\
+										<label class="file_name">' + name+ '</label>\
 									</a>\
 									<br>\
 									<span style="font-size: 0.7em">' + createdDate + '</span>\
 								</div>'; 
 					$('#grid').append(card);
 				}
+
 				//var dateCreated = resp.items[i].createdDate;
 				//var date = timeSince(dateCreated);
 			}
@@ -122,30 +123,32 @@ function getFiles() {
 	function addFile(file) {
 		var type = getType(file.name);
 		var icon = '<i class="fa fa-fw fa-file-' + getIcon(type) + '"></i>';
-		var name = file.name
+		var name = file.name;
+		var url = file.url;
 		if(name.length > 40) {
 			name = name.substr(0, 40) + "...";
 		}
 		var card = '<div class="col-md-3 grid_item_container">\
-						<a href="' + file.url + '" download>\
+						<a href="' + url + '" download>\
 							<div class="grid_item ' + type + '">' + icon + '</div>\
 							<br>\
-							<label>' + name+ '</label>\
+							<label class="file_name">' + name+ '</label>\
 						</a>\
 						<br>\
 						<span style="font-size: 0.7em">' + file.timeSincePosted + '</span>\
 					</div>';
 		if (file.hasThumbnail) {
 			card = '<div class="col-md-3 grid_item_container">\
-						<a href="' + file.url + '" download>\
-							<div class="grid_item grid_photo ' + type + '" style="background-image: url(' + file.url + ')"></div>\
+						<a href="' + url + '" download>\
+							<div class="grid_item grid_photo ' + type + '" style="background-image: url(' + url + ')"></div>\
 							<br>\
-							<label>' + name + '</label>\
+							<label class="file_name">' + name + '</label>\
 						</a>\
 						<br>\
 						<span style="font-size: 0.7em">' + file.timeSincePosted + '</span>\
 					</div>';
 		}
+
         $('#grid').append(card);
 	}
 }
@@ -288,7 +291,7 @@ $("#list_files").on("click", function() {
 });
 
 $("#sharing_link").on("click", function() {
-	alert("Please share Filespace with your friends! :)")
+	console.log(file_map);
 });
 
 $("#add_account_btn").on("click", function(e) {
