@@ -57,7 +57,7 @@ body{
 	text-decoration: none;
 	cursor: pointer;
 }
-#add_accounts_overlay {
+#authentication_overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -66,13 +66,44 @@ body{
   z-index: 10;
   background-color: rgba(0,0,0,0.5); /*dim the background*/
 }
-#add_accounts_container { 
-	background-color: #fff;
-	height: 400px;
-	width: 50%;
-	border-radius: 10px;
+#authentication_container { 
 	position: fixed;
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 10px;
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
-  }
+	text-align: center;
+}
+#authentication_header {
+	font-family: 'Roboto Slab', serif;
+	margin-top: 0;
+}
+#close_authentication {
+	font-size: 25px;
+	margin-right: 20px;
+}
+.account_logo {
+	margin: 20px auto;
+	height: 150px;
+	width: 70%;
+	background-color: #eee;
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+	-ms-transition: all 1s ease;
+	transition: all 1s ease;
+}
+.account_logo:hover { 
+	cursor: pointer;
+	-webkit-filter: brightness(70%);
+}
+#dropbox_logo {
+    background: url("../img/dropbox.png") no-repeat center; 
+	background-size: contain;
+}
+#google_drive_logo {
+    background: url("../img/google_drive.png") no-repeat center; 
+	background-size: contain;
+}

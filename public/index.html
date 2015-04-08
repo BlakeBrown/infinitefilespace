@@ -22,8 +22,8 @@
 <body ondragstart="return false">
 	<div class="container">
 		<div class="col-md-2">
-			<h4 id="site_header_1" style="font-family:'Open Sans', sans-serif;">infinite</h4>
-			<h1 id="site_header_2" style="font-family:'Roboto Slab', serif;">Filespace</h1>
+			<h4 id="site_header_1">infinite</h4>
+			<h1 id="site_header_2">Filespace</h1>
 			<button id="upload_file_btn" class="btn btn-info"><i class="fa fa-upload"></i></button>
 			<input id="upload_file" type="file" style="display:none">
 			<ul id="header_list" style="list-style-type: none">
@@ -63,9 +63,25 @@
 
 		<div class="drop-overlay"></div>
 	</div>
-	<div id="add_accounts_overlay">
-		<div id="add_accounts_container">
-			<h1> Hello </h1>
+	<div id="authentication_overlay">
+		<div id="authentication_container">
+			<div class="row">
+				<div style="text-align:right">
+					<a href="#">
+						<i id="close_authentication" class="fa fa-times"></i>
+					</a>
+				</div>
+				<div class="col-md-12">
+				 	<h2 id="authentication_header">Service Authentication</h2>
+					<h4 style="font-family: 'Open Sans', sans-serif;">Please note, filespace will never collect <b>ANY</b> information about you or your files.</h4>
+				</div>
+				<div class="col-md-6" style="text-align:center">
+					<div id="dropbox_logo" class="account_logo"></div>
+				</div>
+				<div class="col-md-6" style="text-align:center">
+					<div id="google_drive_logo" class="account_logo"></div>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>
