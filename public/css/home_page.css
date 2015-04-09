@@ -1,8 +1,9 @@
-html, body{
-  min-height: 100%;
+html {
+	height: 100%;
 }
-body{
+body {
   position: relative;
+  min-height: 100%;
 }
 #site_header_1 {
 	font-family: 'Open Sans', sans-serif;

@@ -3,6 +3,9 @@ var folderPath = '';
 
 var google_client_id = '766073445398-mj7vlvphri2a54pkmn1e9eapu3dkc6f3.apps.googleusercontent.com';
 var google_api_key = 'AIzaSyAOCKS4OLptIyuefC2OBdPEi9uJU840GAQ';
+// To enter one or more authentication scopes, refer to the documentation for the API.
+var google_scopes = 'https://www.googleapis.com/auth/drive';
+var google_authorized = 0;
 
 //=============== GOOGLE DRIVE ================================ 
 
@@ -19,15 +22,15 @@ function checkAuth() {
 function handleAuthResult(authResult) {
 	var authorizeButton = document.getElementById('add_account_btn');
 	if (authResult && !authResult.error) {
-		//authorizeButton.style.visibility = 'hidden';
+		$("#authentication_overlay").hide();
+		google_authorized = 1;
 		makeApiCall();
-	} else {
-		authorizeButton.style.visibility = '';
-	}
+	} 
 }
 
 // Load the API and make an API call.  Display the results on the screen.
 function makeApiCall() {
+	
 	gapi.client.load('drive', 'v2', function() {
 
 		var request = gapi.client.drive.files.list ();
@@ -84,14 +87,14 @@ $(document).ready(function () {
     	getUser();
     	getFiles();
     } else {
-		dropbox_client.authenticate(function (error, client) {
-	        if (error) {
-	        	console.log('Error: ' + error);
-	        	return;
-	        }
-    		getUser();
-	        getFiles();
-	    });
+		// dropbox_client.authenticate(function (error, client) {
+	 //        if (error) {
+	 //        	console.log('Error: ' + error);
+	 //        	return;
+	 //        }
+  //   		getUser();
+	 //        getFiles();
+	 //    });
     }
 });
 
@@ -302,7 +305,37 @@ $("#add_account_btn").on("click", function(e) {
 	//gapi.auth.authorize({client_id: google_client_id, scope: scopes, immediate: false}, handleAuthResult);
 });
 
+$("#dropbox_logo").on("click", function(e) {
+	e.preventDefault();
+
+    if(!dropbox_client.isAuthenticated()) {
+    	console.log("dropbox");
+    	// Sign in with dropbox
+		dropbox_client.authenticate(function (error, client) {
+	        if (error) {
+	        	console.log('Error: ' + error);
+	        	return;
+	        }
+    		getUser();
+	        getFiles();
+	    });
+    }
+
+});
+
+$("#google_drive_logo").on("click", function(e) {
+	console.log("google drive");
+	e.preventDefault();
+	if(google_authorized) {
+		alert("Already authorized!");
+	} else {
+		// Sign in with google drive
+		gapi.auth.authorize({client_id: google_client_id, scope: google_scopes, immediate: false}, handleAuthResult);
+	}
+});
+
 $("#close_authentication").on("click", function(e) {
 	e.preventDefault();
 	$("#authentication_overlay").hide();
 });
+
