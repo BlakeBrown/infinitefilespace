@@ -58,13 +58,14 @@ body{
 	cursor: pointer;
 }
 #authentication_overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 10;
-  background-color: rgba(0,0,0,0.5); /*dim the background*/
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 10;
+	background-color: rgba(0,0,0,0.5); /*dim the background*/
 }
 #authentication_container { 
 	position: fixed;
@@ -97,7 +98,7 @@ body{
 }
 .account_logo:hover { 
 	cursor: pointer;
-	-webkit-filter: brightness(70%);
+	-webkit-filter: brightness(60%);
 }
 #dropbox_logo {
     background: url("../img/dropbox.png") no-repeat center; 

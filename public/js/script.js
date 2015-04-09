@@ -296,7 +296,13 @@ $("#sharing_link").on("click", function() {
 
 $("#add_account_btn").on("click", function(e) {
 	e.preventDefault();
-	$("#add_accounts_overlay").show();
+	$("#authentication_container").addClass("animated fadeIn");
+	$("#authentication_overlay").show();
 	//Authorize with google drive
 	//gapi.auth.authorize({client_id: google_client_id, scope: scopes, immediate: false}, handleAuthResult);
+});
+
+$("#close_authentication").on("click", function(e) {
+	e.preventDefault();
+	$("#authentication_overlay").hide();
 });
