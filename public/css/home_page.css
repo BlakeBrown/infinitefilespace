@@ -21,6 +21,20 @@ body {
 #header_list li {
 	margin: 10px 0;
 }
+.storage_space_remaining {
+	font-size: .9em; 
+	color: rgba(103, 103, 103, 0.39);
+}
+#used_data_bar_wrapper { 
+	display: none;
+	height: .3em; 
+	background: #000; 
+	width: 100%;
+}
+#used_data_bar {
+	height: 100%;
+	background-color: #5BC0DE;
+}
 #upload_file_btn {
 	padding: 10px 60px;
 }

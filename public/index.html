@@ -42,8 +42,11 @@
 				<li><a id="add_account_btn">Add account <i class="fa fa-plus"></i></a></li>
 				
 			</ul>
-			<span style="font-size: .9em; color: rgba(103, 103, 103, 0.39)"><span id="used_data">23MB</span>/ <span class="total_data">4112MB</span></span>
-			<div style="height: .3em; background: #000; width: 100%;"></div>
+			<span id="used_data" class="storage_space_remaining"></span>
+			<span id="total_data" class="storage_space_remaining"></span>
+			<div id="used_data_bar_wrapper">
+				<div id="used_data_bar"></div>
+			</div>
 		</div>
 		<div class="col-md-10">
 			<div id="search_bar">

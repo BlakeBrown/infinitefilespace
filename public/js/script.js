@@ -88,7 +88,6 @@ $(document).ready(function () {
         if (error) {
         	console.log('Error: ' + error);
         } else {
-        	console.log(client);
     		getUser();
 	        getFiles();
         }
@@ -101,10 +100,13 @@ $(document).ready(function () {
 	function getUser() {
 		dropbox_client.getAccountInfo(function(error, info) {
 			if(!error){
-				console.log("Dropbox user info:" + info);
-			} else {
-				console.log(error);
-			}
+				var used_quota = (info.usedQuota/1000000000).toFixed(2);
+				var quota = (info.quota/1000000000).toFixed(2);
+				$("#used_data").text(used_quota + " GB / ");
+				$("#total_data").text(quota + " GB");
+				$("#used_data_bar_wrapper").show();
+				$("#used_data_bar").width(Math.round((used_quota/quota)*100) + "%");
+			} 
 		});
 	}
 
@@ -122,9 +124,7 @@ $(document).ready(function () {
 						if (i === 0) initGrid();
 					});
 				});
-			} else {
-				console.log(error);
-			}
+			} 
 		});
 
 		function addFile(file) {
