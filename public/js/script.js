@@ -10,14 +10,10 @@ $(document).ready(function () {
 
 	//=============== GOOGLE DRIVE ================================ 
 
-	// Use a button to handle authentication the first time.
-	function handleClientLoad() {
-		gapi.client.setApiKey(google_api_key);
-		window.setTimeout(checkAuth,1);
-	}
+	window.setTimeout(checkAuth, 100);
 
 	function checkAuth() {
-		gapi.auth.authorize({client_id: google_client_id, scope: 'https://www.googleapis.com/auth/drive', immediate: true}, handleAuthResult);
+		gapi.auth.authorize({client_id: google_client_id, scope: google_scopes, immediate: true}, handleAuthResult);
 	}
 
 	function handleAuthResult(authResult) {
@@ -25,8 +21,11 @@ $(document).ready(function () {
 		if (authResult && !authResult.error) {
 			$("#authentication_overlay").hide();
 			google_authorized = 1;
-			//makeApiCall();
-		} 
+			console.log("Authenticating");
+			makeApiCall();
+		} else {	
+			console.log("Can't authenticate");
+		}
 	}
 
 	// Load the API and make an API call.  Display the results on the screen.
@@ -36,8 +35,9 @@ $(document).ready(function () {
 
 			var request = gapi.client.drive.files.list ();
 
-			request.execute(function(resp) {          
-				for (i=0; i<resp.items.length; i++) {
+			request.execute(function(resp) {    
+				console.log(resp);      
+				for(i = 0; i < resp.items.length; i++) {
 
 					var name = resp.items[i].title;
 					var url = resp.items[i].thumbnailLink;
