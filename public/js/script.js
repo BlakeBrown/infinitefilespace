@@ -36,18 +36,19 @@ $(document).ready(function () {
 			var request = gapi.client.drive.files.list ();
 
 			request.execute(function(resp) {    
-				console.log(resp);      
+				     
 				for(i = 0; i < resp.items.length; i++) {
-					console.log(resp.items[i]);
+					
 					var name = resp.items[i].title;
 					var url = resp.items[i].thumbnailLink;
 					var download_link = resp.items[i].webContentLink;
-					console.log(download_link);
 					var createdDate = Date.parse(resp.items[i].createdDate);
 					createdDate = timeSince(createdDate);
+
 					if(name.length > 40) {
 						name = name.substr(0, 40) + "...";
 					}
+
 					var icon = '<i class="fa fa-fw fa-file-' + getIcon(getType(name)) + '"></i>';
 					if (url) icon = '';
 
@@ -78,7 +79,7 @@ $(document).ready(function () {
 					//var dateCreated = resp.items[i].createdDate;
 					//var date = timeSince(dateCreated);
 				}
-				initGrid();
+				// initGrid();
 			});        
 		});
 	}
@@ -123,7 +124,7 @@ $(document).ready(function () {
 						file.timeSincePosted = timeSince(Date.parse(time));
 						addFile(file);
 						i--;
-						if (i === 0) initGrid();
+						//if (i === 0) initGrid();
 					});
 				});
 			} 
@@ -195,57 +196,57 @@ $(document).ready(function () {
 		return Math.floor(seconds) + " seconds ago";
 	}
 
-	// function initGrid() {
-	// 	var body = document.body,
-	// 		dropArea = document.getElementById( 'drop-area' ),
-	// 		droppableArr = [], dropAreaTimeout;
+	function initGrid() {
+		var body = document.body,
+			dropArea = document.getElementById( 'drop-area' ),
+			droppableArr = [], dropAreaTimeout;
 
-	// 	[].slice.call( document.querySelectorAll( '#drop-area .drop-area__item' )).forEach( function( el ) {
-	// 		droppableArr.push( new Droppable( el, {
-	// 			onDrop : function( instance, draggableEl ) {
-	// 				// show checkmark inside the droppabe element
-	// 				classie.add( instance.el, 'drop-feedback' );
-	// 				clearTimeout( instance.checkmarkTimeout );
-	// 				instance.checkmarkTimeout = setTimeout( function() {
-	// 						classie.remove( instance.el, 'drop-feedback' );
-	// 				}, 800 );
-	// 				// ...
-	// 			}
-	// 		} ) );
-	// 	} );
+		[].slice.call( document.querySelectorAll( '#drop-area .drop-area__item' )).forEach( function( el ) {
+			droppableArr.push( new Droppable( el, {
+				onDrop : function( instance, draggableEl ) {
+					// show checkmark inside the droppabe element
+					classie.add( instance.el, 'drop-feedback' );
+					clearTimeout( instance.checkmarkTimeout );
+					instance.checkmarkTimeout = setTimeout( function() {
+							classie.remove( instance.el, 'drop-feedback' );
+					}, 800 );
+					// ...
+				}
+			} ) );
+		} );
 
-	// 	[].slice.call(document.querySelectorAll( '#grid .grid_item' )).forEach( function( el ) {
-	// 		new Draggable( el, droppableArr, {
-	// 			draggabilly : { containment: document.body },
-	// 			onStart : function() {
-	// 				// add class 'drag-active' to body
-	// 				classie.add( body, 'drag-active' );
-	// 				// clear timeout: dropAreaTimeout (toggle drop area)
-	// 				clearTimeout( dropAreaTimeout );
-	// 				// show dropArea
-	// 				classie.add( dropArea, 'show' );
-	// 			},
-	// 			onEnd : function( wasDropped ) {
-	// 				var afterDropFn = function() {
-	// 					// hide dropArea
-	// 					classie.remove( dropArea, 'show' );
-	// 					// remove class 'drag-active' from body
-	// 					classie.remove( body, 'drag-active' );
-	// 				};
+		[].slice.call(document.querySelectorAll( '#grid .grid_item' )).forEach( function( el ) {
+			new Draggable( el, droppableArr, {
+				draggabilly : { containment: document.body },
+				onStart : function() {
+					// add class 'drag-active' to body
+					classie.add( body, 'drag-active' );
+					// clear timeout: dropAreaTimeout (toggle drop area)
+					clearTimeout( dropAreaTimeout );
+					// show dropArea
+					classie.add( dropArea, 'show' );
+				},
+				onEnd : function( wasDropped ) {
+					var afterDropFn = function() {
+						// hide dropArea
+						classie.remove( dropArea, 'show' );
+						// remove class 'drag-active' from body
+						classie.remove( body, 'drag-active' );
+					};
 
-	// 				if( !wasDropped ) {
-	// 					afterDropFn();
-	// 				}
-	// 				else {
-	// 					// after some time hide drop area and remove class 'drag-active' from body
-	// 					console.log($(".drag-active").closest(".grid_item").find("a").attr('href'));
-	// 					clearTimeout( dropAreaTimeout );
-	// 					dropAreaTimeout = setTimeout( afterDropFn, 400 );
-	// 				}
-	// 			}
-	// 		});
-	// 	});
-	// }
+					if( !wasDropped ) {
+						afterDropFn();
+					}
+					else {
+						// after some time hide drop area and remove class 'drag-active' from body
+						console.log($(".drag-active").closest(".grid_item").find("a").attr('href'));
+						clearTimeout( dropAreaTimeout );
+						dropAreaTimeout = setTimeout( afterDropFn, 400 );
+					}
+				}
+			});
+		});
+	}
 
 	// Uploads a file to dropbox and appends it to the DOM
 	function uploadFileToDropbox(file) {
