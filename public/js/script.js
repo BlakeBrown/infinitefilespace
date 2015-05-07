@@ -38,9 +38,11 @@ $(document).ready(function () {
 			request.execute(function(resp) {    
 				console.log(resp);      
 				for(i = 0; i < resp.items.length; i++) {
-
+					console.log(resp.items[i]);
 					var name = resp.items[i].title;
 					var url = resp.items[i].thumbnailLink;
+					var download_link = resp.items[i].webContentLink;
+					console.log(download_link);
 					var createdDate = Date.parse(resp.items[i].createdDate);
 					createdDate = timeSince(createdDate);
 					if(name.length > 40) {
@@ -51,7 +53,7 @@ $(document).ready(function () {
 
 					if(url) {   
 						card = '<div class="col-md-3 grid_item_container">\
-									<a href="' + url + '" download>\
+									<a href="' + download_link + '" download>\
 										<div class="grid_item grid_photo" style="background-image: url(' + url + ')"></div>\
 										<br>\
 										<label class="file_name">' + name + '</label>\
