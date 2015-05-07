@@ -195,62 +195,57 @@ $(document).ready(function () {
 		return Math.floor(seconds) + " seconds ago";
 	}
 
-	function initGrid() {
-		var body = document.body,
-			dropArea = document.getElementById( 'drop-area' ),
-			droppableArr = [], dropAreaTimeout;
+	// function initGrid() {
+	// 	var body = document.body,
+	// 		dropArea = document.getElementById( 'drop-area' ),
+	// 		droppableArr = [], dropAreaTimeout;
 
-		[].slice.call( document.querySelectorAll( '#drop-area .drop-area__item' )).forEach( function( el ) {
-			droppableArr.push( new Droppable( el, {
-				onDrop : function( instance, draggableEl ) {
-					// show checkmark inside the droppabe element
-					classie.add( instance.el, 'drop-feedback' );
-					clearTimeout( instance.checkmarkTimeout );
-					instance.checkmarkTimeout = setTimeout( function() {
-							classie.remove( instance.el, 'drop-feedback' );
-					}, 800 );
-					// ...
-				}
-			} ) );
-		} );
+	// 	[].slice.call( document.querySelectorAll( '#drop-area .drop-area__item' )).forEach( function( el ) {
+	// 		droppableArr.push( new Droppable( el, {
+	// 			onDrop : function( instance, draggableEl ) {
+	// 				// show checkmark inside the droppabe element
+	// 				classie.add( instance.el, 'drop-feedback' );
+	// 				clearTimeout( instance.checkmarkTimeout );
+	// 				instance.checkmarkTimeout = setTimeout( function() {
+	// 						classie.remove( instance.el, 'drop-feedback' );
+	// 				}, 800 );
+	// 				// ...
+	// 			}
+	// 		} ) );
+	// 	} );
 
-		[].slice.call(document.querySelectorAll( '#grid .grid_item' )).forEach( function( el ) {
-			new Draggable( el, droppableArr, {
-				draggabilly : { containment: document.body },
-				onStart : function() {
-					// add class 'drag-active' to body
-					classie.add( body, 'drag-active' );
-					// clear timeout: dropAreaTimeout (toggle drop area)
-					clearTimeout( dropAreaTimeout );
-					// show dropArea
-					classie.add( dropArea, 'show' );
-				},
-				onEnd : function( wasDropped ) {
-					var afterDropFn = function() {
-						// hide dropArea
-						classie.remove( dropArea, 'show' );
-						// remove class 'drag-active' from body
-						classie.remove( body, 'drag-active' );
-					};
+	// 	[].slice.call(document.querySelectorAll( '#grid .grid_item' )).forEach( function( el ) {
+	// 		new Draggable( el, droppableArr, {
+	// 			draggabilly : { containment: document.body },
+	// 			onStart : function() {
+	// 				// add class 'drag-active' to body
+	// 				classie.add( body, 'drag-active' );
+	// 				// clear timeout: dropAreaTimeout (toggle drop area)
+	// 				clearTimeout( dropAreaTimeout );
+	// 				// show dropArea
+	// 				classie.add( dropArea, 'show' );
+	// 			},
+	// 			onEnd : function( wasDropped ) {
+	// 				var afterDropFn = function() {
+	// 					// hide dropArea
+	// 					classie.remove( dropArea, 'show' );
+	// 					// remove class 'drag-active' from body
+	// 					classie.remove( body, 'drag-active' );
+	// 				};
 
-					if( !wasDropped ) {
-						afterDropFn();
-					}
-					else {
-						// after some time hide drop area and remove class 'drag-active' from body
-						console.log($(".drag-active").closest(".grid_item").find("a").attr('href'));
-						clearTimeout( dropAreaTimeout );
-						dropAreaTimeout = setTimeout( afterDropFn, 400 );
-					}
-				}
-			});
-		});
-	}
-
-
-	$(".grid_item").on("click", function() {
-		console.log($(this).find("a"));
-	});
+	// 				if( !wasDropped ) {
+	// 					afterDropFn();
+	// 				}
+	// 				else {
+	// 					// after some time hide drop area and remove class 'drag-active' from body
+	// 					console.log($(".drag-active").closest(".grid_item").find("a").attr('href'));
+	// 					clearTimeout( dropAreaTimeout );
+	// 					dropAreaTimeout = setTimeout( afterDropFn, 400 );
+	// 				}
+	// 			}
+	// 		});
+	// 	});
+	// }
 
 	// Uploads a file to dropbox and appends it to the DOM
 	function uploadFileToDropbox(file) {
