@@ -1,5 +1,5 @@
 $(document).ready(function () {
-	var dropbox_client = new Dropbox.Client({ key: 'urwnqx6tzbbcjt2' });
+	var dropbox_client = new Dropbox.Client({ key: 'uel8ddf0eb8ow3d' });
 	var folderPath = '';
 
 	var google_client_id = '766073445398-mj7vlvphri2a54pkmn1e9eapu3dkc6f3.apps.googleusercontent.com';
